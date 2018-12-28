@@ -1,2 +1,2 @@
 # Visual-Sort
-Visual Sorting Demo
+Visualization of sorting algorithms in C#
