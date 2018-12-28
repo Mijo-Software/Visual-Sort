@@ -28,22 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.pictureBox = new System.Windows.Forms.PictureBox();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.buttonSort = new System.Windows.Forms.Button();
 			this.buttonShuffle = new System.Windows.Forms.Button();
 			this.comboBoxSortAlgorithms = new System.Windows.Forms.ComboBox();
 			this.backgroundWorkerSorting = new System.ComponentModel.BackgroundWorker();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+			this.panelDraw = new System.Windows.Forms.Panel();
 			this.SuspendLayout();
-			// 
-			// pictureBox
-			// 
-			this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pictureBox.Location = new System.Drawing.Point(12, 97);
-			this.pictureBox.Name = "pictureBox";
-			this.pictureBox.Size = new System.Drawing.Size(256, 256);
-			this.pictureBox.TabIndex = 0;
-			this.pictureBox.TabStop = false;
 			// 
 			// buttonSort
 			// 
@@ -70,7 +61,7 @@
 			this.comboBoxSortAlgorithms.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxSortAlgorithms.FormattingEnabled = true;
 			this.comboBoxSortAlgorithms.Items.AddRange(new object[] {
-            "BubbleSort"});
+            "Bubble Sort"});
 			this.comboBoxSortAlgorithms.Location = new System.Drawing.Point(12, 12);
 			this.comboBoxSortAlgorithms.Name = "comboBoxSortAlgorithms";
 			this.comboBoxSortAlgorithms.Size = new System.Drawing.Size(256, 21);
@@ -81,33 +72,40 @@
 			this.backgroundWorkerSorting.WorkerReportsProgress = true;
 			this.backgroundWorkerSorting.WorkerSupportsCancellation = true;
 			// 
+			// panelDraw
+			// 
+			this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panelDraw.Location = new System.Drawing.Point(12, 97);
+			this.panelDraw.Name = "panelDraw";
+			this.panelDraw.Size = new System.Drawing.Size(256, 256);
+			this.panelDraw.TabIndex = 4;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(283, 369);
+			this.Controls.Add(this.panelDraw);
 			this.Controls.Add(this.comboBoxSortAlgorithms);
 			this.Controls.Add(this.buttonShuffle);
 			this.Controls.Add(this.buttonSort);
-			this.Controls.Add(this.pictureBox);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Visual Sort";
 			this.Load += new System.EventHandler(this.MainForm_Load);
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.PictureBox pictureBox;
 		private System.Windows.Forms.Button buttonSort;
 		private System.Windows.Forms.Button buttonShuffle;
 		private System.Windows.Forms.ComboBox comboBoxSortAlgorithms;
 		private System.ComponentModel.BackgroundWorker backgroundWorkerSorting;
+		private System.Windows.Forms.Panel panelDraw;
 	}
 }
 
