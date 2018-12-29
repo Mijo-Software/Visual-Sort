@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Visual_Sort
@@ -15,6 +15,7 @@ namespace Visual_Sort
 		private Pen penDraw = new Pen(SystemColors.ControlText, 1);
 		private Pen penControl = new Pen(SystemColors.Control, 1);
 		private bool isShuffled = false;
+		Thread thread;
 
 		public MainForm()
 		{
@@ -29,13 +30,36 @@ namespace Visual_Sort
 			}
 		}
 
+		delegate void SetControlValueCallback(Control pnlSort);
+
+		private void RefreshPanel(Control pnlSort)
+		{
+			if (pnlSort.InvokeRequired)
+			{
+				SetControlValueCallback d = new SetControlValueCallback(RefreshPanel);
+				pnlSort.Invoke(d, new object[] { pnlSort });
+			}
+			else
+			{
+				pnlSort.Refresh();
+			}
+		}
+
 		private void DrawArray()
 		{
+			//RefreshPanel(panelDraw);
+
+			Bitmap bmpsave = new Bitmap(panelDraw.Width, panelDraw.Height);
+			graphics = Graphics.FromImage(bmpsave);
+			panelDraw.Image = bmpsave;
+
+			graphics.Clear(SystemColors.Control);
 			for (byte i = 0; i < array.Length - 1; i++)
 			{
 				graphics.DrawLine(penDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
-				graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
+				//graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
 			}
+			Refresh();
 		}
 
 		private void Shuffle<T>(T[] array)
@@ -48,6 +72,28 @@ namespace Visual_Sort
 				T temp = array[n];
 				array[n] = array[k];
 				array[k] = temp;
+			}
+		}
+
+		private static void Swap(ref byte x, ref byte y)
+		{
+			byte temp = x;
+			x = y;
+			y = temp;
+		}
+
+		private void BubbleSort()
+		{
+			for (byte i = 1; i <= array.Length - 1; i++)
+			{
+				for (byte j = 0; j < array.Length - i; j++)
+				{
+					if (array[j] > array[j + 1])
+					{
+						Swap(ref array[j], ref array[j + 1]);
+					}
+				}
+				DrawArray();
 			}
 		}
 
@@ -76,6 +122,21 @@ namespace Visual_Sort
 				Shuffle(array);
 				DrawArray();
 			}
+			if (thread != null)
+			{
+				thread.Abort();
+				thread.Join();
+			}
+			ThreadStart threadStart = delegate()
+			{
+				buttonShuffle.Enabled = false;
+				buttonSort.Enabled = false;
+				BubbleSort();
+				buttonShuffle.Enabled = true;
+				buttonSort.Enabled = true;
+			};
+			thread = new Thread(threadStart);
+			thread.Start();
 		}
 	}
 }

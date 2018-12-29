@@ -32,8 +32,8 @@
 			this.buttonSort = new System.Windows.Forms.Button();
 			this.buttonShuffle = new System.Windows.Forms.Button();
 			this.comboBoxSortAlgorithms = new System.Windows.Forms.ComboBox();
-			this.backgroundWorkerSorting = new System.ComponentModel.BackgroundWorker();
-			this.panelDraw = new System.Windows.Forms.Panel();
+			this.panelDraw = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.panelDraw)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonSort
@@ -67,11 +67,6 @@
 			this.comboBoxSortAlgorithms.Size = new System.Drawing.Size(256, 21);
 			this.comboBoxSortAlgorithms.TabIndex = 3;
 			// 
-			// backgroundWorkerSorting
-			// 
-			this.backgroundWorkerSorting.WorkerReportsProgress = true;
-			this.backgroundWorkerSorting.WorkerSupportsCancellation = true;
-			// 
 			// panelDraw
 			// 
 			this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -79,6 +74,7 @@
 			this.panelDraw.Name = "panelDraw";
 			this.panelDraw.Size = new System.Drawing.Size(256, 256);
 			this.panelDraw.TabIndex = 4;
+			this.panelDraw.TabStop = false;
 			// 
 			// MainForm
 			// 
@@ -96,6 +92,7 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Visual Sort";
 			this.Load += new System.EventHandler(this.MainForm_Load);
+			((System.ComponentModel.ISupportInitialize)(this.panelDraw)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -104,8 +101,7 @@
 		private System.Windows.Forms.Button buttonSort;
 		private System.Windows.Forms.Button buttonShuffle;
 		private System.Windows.Forms.ComboBox comboBoxSortAlgorithms;
-		private System.ComponentModel.BackgroundWorker backgroundWorkerSorting;
-		private System.Windows.Forms.Panel panelDraw;
+		private System.Windows.Forms.PictureBox panelDraw;
 	}
 }
 
