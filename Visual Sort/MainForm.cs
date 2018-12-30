@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -16,6 +14,7 @@ namespace Visual_Sort
 		private Pen penControl = new Pen(SystemColors.Control, 1);
 		private bool isShuffled = false;
 		Thread thread;
+		Bitmap bmpsave;
 
 		public MainForm()
 		{
@@ -47,19 +46,16 @@ namespace Visual_Sort
 
 		private void DrawArray()
 		{
-			//RefreshPanel(panelDraw);
-
-			Bitmap bmpsave = new Bitmap(panelDraw.Width, panelDraw.Height);
+			bmpsave = new Bitmap(panelDraw.Width, panelDraw.Height);
 			graphics = Graphics.FromImage(bmpsave);
 			panelDraw.Image = bmpsave;
-
-			graphics.Clear(SystemColors.Control);
+			//graphics.Clear(SystemColors.Control);
 			for (byte i = 0; i < array.Length - 1; i++)
 			{
 				graphics.DrawLine(penDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
 				//graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
 			}
-			Refresh();
+			RefreshPanel(panelDraw);
 		}
 
 		private void Shuffle<T>(T[] array)
@@ -99,6 +95,14 @@ namespace Visual_Sort
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
+			DoubleBuffered = true;
+			SetStyle(ControlStyles.OptimizedDoubleBuffer |
+				ControlStyles.UserPaint |
+				ControlStyles.AllPaintingInWmPaint, true);
+			UpdateStyles();
+			typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty |
+				BindingFlags.Instance |
+				BindingFlags.NonPublic, null, panelDraw, new object[] { true });
 			graphics = panelDraw.CreateGraphics();
 			comboBoxSortAlgorithms.SelectedIndex = 0;
 			InitArray();
