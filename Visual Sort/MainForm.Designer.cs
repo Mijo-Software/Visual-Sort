@@ -41,13 +41,13 @@
 			this.labelComparisonValue = new System.Windows.Forms.Label();
 			this.labelComparison = new System.Windows.Forms.Label();
 			this.comboBoxScheme = new System.Windows.Forms.ComboBox();
-			this.groupBoxVisualisationDepth = new System.Windows.Forms.GroupBox();
-			this.VisualisationDepthDetailed = new System.Windows.Forms.RadioButton();
-			this.VisualisationDepthSimple = new System.Windows.Forms.RadioButton();
+			this.groupBoxVisualizationDepth = new System.Windows.Forms.GroupBox();
+			this.radioBoxVisualizationDepthDetailed = new System.Windows.Forms.RadioButton();
+			this.radioBoxVisualizationDepthSimple = new System.Windows.Forms.RadioButton();
 			this.checkBoxDataProcessingSpeed = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.panelDraw)).BeginInit();
 			this.tableLayoutPanel.SuspendLayout();
-			this.groupBoxVisualisationDepth.SuspendLayout();
+			this.groupBoxVisualizationDepth.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// buttonSort
@@ -188,38 +188,38 @@
 			this.comboBoxScheme.Size = new System.Drawing.Size(256, 21);
 			this.comboBoxScheme.TabIndex = 6;
 			// 
-			// groupBoxVisualisationDepth
+			// groupBoxVisualizationDepth
 			// 
-			this.groupBoxVisualisationDepth.Controls.Add(this.VisualisationDepthDetailed);
-			this.groupBoxVisualisationDepth.Controls.Add(this.VisualisationDepthSimple);
-			this.groupBoxVisualisationDepth.Location = new System.Drawing.Point(13, 67);
-			this.groupBoxVisualisationDepth.Name = "groupBoxVisualisationDepth";
-			this.groupBoxVisualisationDepth.Size = new System.Drawing.Size(255, 48);
-			this.groupBoxVisualisationDepth.TabIndex = 7;
-			this.groupBoxVisualisationDepth.TabStop = false;
-			this.groupBoxVisualisationDepth.Text = "Darstellungstiefe";
+			this.groupBoxVisualizationDepth.Controls.Add(this.radioBoxVisualizationDepthDetailed);
+			this.groupBoxVisualizationDepth.Controls.Add(this.radioBoxVisualizationDepthSimple);
+			this.groupBoxVisualizationDepth.Location = new System.Drawing.Point(13, 67);
+			this.groupBoxVisualizationDepth.Name = "groupBoxVisualizationDepth";
+			this.groupBoxVisualizationDepth.Size = new System.Drawing.Size(255, 48);
+			this.groupBoxVisualizationDepth.TabIndex = 7;
+			this.groupBoxVisualizationDepth.TabStop = false;
+			this.groupBoxVisualizationDepth.Text = "Visualization depth";
 			// 
-			// VisualisationDepthDetailed
+			// radioBoxVisualizationDepthDetailed
 			// 
-			this.VisualisationDepthDetailed.AutoSize = true;
-			this.VisualisationDepthDetailed.Location = new System.Drawing.Point(73, 20);
-			this.VisualisationDepthDetailed.Name = "VisualisationDepthDetailed";
-			this.VisualisationDepthDetailed.Size = new System.Drawing.Size(112, 17);
-			this.VisualisationDepthDetailed.TabIndex = 8;
-			this.VisualisationDepthDetailed.Text = "genau (langsamer)";
-			this.VisualisationDepthDetailed.UseVisualStyleBackColor = true;
+			this.radioBoxVisualizationDepthDetailed.AutoSize = true;
+			this.radioBoxVisualizationDepthDetailed.Location = new System.Drawing.Point(67, 20);
+			this.radioBoxVisualizationDepthDetailed.Name = "radioBoxVisualizationDepthDetailed";
+			this.radioBoxVisualizationDepthDetailed.Size = new System.Drawing.Size(101, 17);
+			this.radioBoxVisualizationDepthDetailed.TabIndex = 8;
+			this.radioBoxVisualizationDepthDetailed.Text = "detailed (slower)";
+			this.radioBoxVisualizationDepthDetailed.UseVisualStyleBackColor = true;
 			// 
-			// VisualisationDepthSimple
+			// radioBoxVisualizationDepthSimple
 			// 
-			this.VisualisationDepthSimple.AutoSize = true;
-			this.VisualisationDepthSimple.Checked = true;
-			this.VisualisationDepthSimple.Location = new System.Drawing.Point(7, 20);
-			this.VisualisationDepthSimple.Name = "VisualisationDepthSimple";
-			this.VisualisationDepthSimple.Size = new System.Drawing.Size(60, 17);
-			this.VisualisationDepthSimple.TabIndex = 0;
-			this.VisualisationDepthSimple.TabStop = true;
-			this.VisualisationDepthSimple.Text = "einfach";
-			this.VisualisationDepthSimple.UseVisualStyleBackColor = true;
+			this.radioBoxVisualizationDepthSimple.AutoSize = true;
+			this.radioBoxVisualizationDepthSimple.Checked = true;
+			this.radioBoxVisualizationDepthSimple.Location = new System.Drawing.Point(7, 20);
+			this.radioBoxVisualizationDepthSimple.Name = "radioBoxVisualizationDepthSimple";
+			this.radioBoxVisualizationDepthSimple.Size = new System.Drawing.Size(54, 17);
+			this.radioBoxVisualizationDepthSimple.TabIndex = 0;
+			this.radioBoxVisualizationDepthSimple.TabStop = true;
+			this.radioBoxVisualizationDepthSimple.Text = "simple";
+			this.radioBoxVisualizationDepthSimple.UseVisualStyleBackColor = true;
 			// 
 			// checkBoxDataProcessingSpeed
 			// 
@@ -239,7 +239,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(283, 507);
 			this.Controls.Add(this.checkBoxDataProcessingSpeed);
-			this.Controls.Add(this.groupBoxVisualisationDepth);
+			this.Controls.Add(this.groupBoxVisualizationDepth);
 			this.Controls.Add(this.comboBoxScheme);
 			this.Controls.Add(this.tableLayoutPanel);
 			this.Controls.Add(this.panelDraw);
@@ -257,8 +257,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.panelDraw)).EndInit();
 			this.tableLayoutPanel.ResumeLayout(false);
 			this.tableLayoutPanel.PerformLayout();
-			this.groupBoxVisualisationDepth.ResumeLayout(false);
-			this.groupBoxVisualisationDepth.PerformLayout();
+			this.groupBoxVisualizationDepth.ResumeLayout(false);
+			this.groupBoxVisualizationDepth.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -277,9 +277,9 @@
 		private System.Windows.Forms.Label labelComparisonValue;
 		private System.Windows.Forms.Label labelComparison;
 		private System.Windows.Forms.ComboBox comboBoxScheme;
-		private System.Windows.Forms.GroupBox groupBoxVisualisationDepth;
-		private System.Windows.Forms.RadioButton VisualisationDepthDetailed;
-		private System.Windows.Forms.RadioButton VisualisationDepthSimple;
+		private System.Windows.Forms.GroupBox groupBoxVisualizationDepth;
+		private System.Windows.Forms.RadioButton radioBoxVisualizationDepthDetailed;
+		private System.Windows.Forms.RadioButton radioBoxVisualizationDepthSimple;
 		private System.Windows.Forms.CheckBox checkBoxDataProcessingSpeed;
 	}
 }

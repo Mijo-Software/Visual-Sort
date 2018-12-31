@@ -123,7 +123,7 @@ namespace Visual_Sort
 				{
 					case "lines":
 					{
-						if (VisualisationDepthDetailed.Checked && (marker == i))
+						if (radioBoxVisualizationDepthDetailed.Checked && (marker == i))
 						{
 							graphics.DrawLine(penDrawMarker, i, panelDraw.Height - array[i], i, panelDraw.Height);
 						}
@@ -136,7 +136,7 @@ namespace Visual_Sort
 					}
 					case "dotes":
 					{
-						if (VisualisationDepthDetailed.Checked && (marker == i))
+						if (radioBoxVisualizationDepthDetailed.Checked && (marker == i))
 						{
 							graphics.FillRectangle(brushDrawMarker, i, panelDraw.Height - array[i], 1, 1);
 						}
@@ -184,7 +184,7 @@ namespace Visual_Sort
 					{
 						swap++;
 						Swap(ref array[j], ref array[j + 1]);
-						if (VisualisationDepthDetailed.Checked)
+						if (radioBoxVisualizationDepthDetailed.Checked)
 						{
 							DrawArray(j);
 							MeasureTimeDiff();
@@ -192,7 +192,7 @@ namespace Visual_Sort
 						}
 					}
 				}
-				if (VisualisationDepthSimple.Checked)
+				if (radioBoxVisualizationDepthSimple.Checked)
 				{
 					DrawArray();
 					MeasureTimeDiff();
