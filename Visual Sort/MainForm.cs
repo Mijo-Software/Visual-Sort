@@ -22,13 +22,15 @@ namespace Visual_Sort
 
 		private Pen
 			penDraw = new Pen(SystemColors.ControlText,1 ),
-			penDrawMarker = new Pen(Color.OrangeRed, 1),
+			penMarker = new Pen(Color.OrangeRed, 1),
+			penFinal = new Pen(Color.LimeGreen, 1),
 			penControl = new Pen(SystemColors.Control, 1);
 
 		private SolidBrush
 			brushDraw = new SolidBrush(SystemColors.ControlText),
-			brushDrawMarker = new SolidBrush(Color.OrangeRed),
-			brushDrawControl = new SolidBrush(SystemColors.Control);
+			brushMarker = new SolidBrush(Color.OrangeRed),
+			brushFinal = new SolidBrush(Color.LimeGreen),
+			brushControl = new SolidBrush(SystemColors.Control);
 
 		private bool isShuffled = false;
 
@@ -70,6 +72,27 @@ namespace Visual_Sort
 			}
 		}
 
+		private void ApplyFinalEvent()
+		{
+			for (byte i = 0; i < array.Length - 1; i++)
+			{
+				switch (comboBoxVisualizationScheme.SelectedItem.ToString())
+				{
+					case "lines":
+						{
+							graphics.DrawLine(penFinal, i, panelDraw.Height - array[i], i, panelDraw.Height);
+							//graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
+							break;
+						}
+					case "dotes":
+						{
+							graphics.FillRectangle(brushFinal, i, panelDraw.Height - array[i], 1, 1);
+							break;
+						}
+				}
+			}
+		}
+
 		delegate void SetControlValueCallback(Control pnlSort);
 
 		private void RefreshPanel(Control pnlSort)
@@ -87,25 +110,23 @@ namespace Visual_Sort
 
 		private void DrawArray()
 		{
-			/*bmpsave = new Bitmap(panelDraw.Width, panelDraw.Height);
-			graphics = Graphics.FromImage(bmpsave);
-			panelDraw.Image = bmpsave;*/
-			if (comboBoxScheme.SelectedItem.ToString() != "lines") graphics.Clear(SystemColors.Control);
+			/*bmpSave = new Bitmap(panelDraw.Width, panelDraw.Height);
+			graphics = Graphics.FromImage(bmpSave);
+			panelDraw.Image = bmpSave;*/
+			if (comboBoxVisualizationScheme.SelectedItem.ToString() != "lines") graphics.Clear(SystemColors.Control);
 			for (byte i = 0; i < array.Length - 1; i++)
 			{
-				switch (comboBoxScheme.SelectedItem.ToString())
+				switch (comboBoxVisualizationScheme.SelectedItem.ToString())
 				{
 					case "lines":
-					{
+						//graphics.DrawLine(penDraw, panelDraw.Left + i, panelDraw.Top + panelDraw.Height - array[i], panelDraw.Left + i, panelDraw.Top + panelDraw.Height);
+						//graphics.DrawLine(penControl, panelDraw.Left + i, panelDraw.Top, panelDraw.Left + i, panelDraw.Top + (panelDraw.Height - array[i]));
 						graphics.DrawLine(penDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
 						graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
 						break;
-					}
 					case "dotes":
-					{
 						graphics.FillRectangle(brushDraw, i, panelDraw.Height - array[i], 1, 1);
 						break;
-					}
 				}
 			}
 			//RefreshPanel(panelDraw);
@@ -116,16 +137,16 @@ namespace Visual_Sort
 			/*bmpsave = new Bitmap(panelDraw.Width, panelDraw.Height);
 			graphics = Graphics.FromImage(bmpsave);
 			panelDraw.Image = bmpsave;*/
-			if (comboBoxScheme.SelectedItem.ToString() != "lines") graphics.Clear(SystemColors.Control);
+			if (comboBoxVisualizationScheme.SelectedItem.ToString() != "lines") graphics.Clear(SystemColors.Control);
 			for (byte i = 0; i < array.Length - 1; i++)
 			{
-				switch (comboBoxScheme.SelectedItem.ToString())
+				switch (comboBoxVisualizationScheme.SelectedItem.ToString())
 				{
 					case "lines":
 					{
 						if (radioBoxVisualizationDepthDetailed.Checked && (marker == i))
 						{
-							graphics.DrawLine(penDrawMarker, i, panelDraw.Height - array[i], i, panelDraw.Height);
+							graphics.DrawLine(penMarker, i, panelDraw.Height - array[i], i, panelDraw.Height);
 						}
 						else
 						{
@@ -138,7 +159,7 @@ namespace Visual_Sort
 					{
 						if (radioBoxVisualizationDepthDetailed.Checked && (marker == i))
 						{
-							graphics.FillRectangle(brushDrawMarker, i, panelDraw.Height - array[i], 1, 1);
+							graphics.FillRectangle(brushMarker, i, panelDraw.Height - array[i], 1, 1);
 						}
 						else
 						{
@@ -186,7 +207,7 @@ namespace Visual_Sort
 						Swap(ref array[j], ref array[j + 1]);
 						if (radioBoxVisualizationDepthDetailed.Checked)
 						{
-							DrawArray(j);
+							DrawArray((byte)(j + 1));
 							MeasureTimeDiff();
 							ShowProcessingInformation();
 						}
@@ -212,8 +233,9 @@ namespace Visual_Sort
 				BindingFlags.Instance |
 				BindingFlags.NonPublic, null, panelDraw, new object[] { true });
 			graphics = panelDraw.CreateGraphics();
-			comboBoxSortAlgorithms.SelectedIndex = 0;
-			comboBoxScheme.SelectedIndex = 0;
+			comboBoxSortAlgorithm.SelectedIndex = 0;
+			comboBoxVisualizationScheme.SelectedIndex = 0;
+			comboBoxShuffleMode.SelectedIndex = 0;
 			InitArray();
 		}
 
@@ -235,7 +257,27 @@ namespace Visual_Sort
 			labelComparisonValue.Text = "0";
 			labelSwapValue.Text = "0";
 			labelRuntimeValue.Text = "0";
-			Shuffle(array);
+			switch (comboBoxShuffleMode.SelectedItem.ToString())
+			{
+				case "random":
+					Shuffle(array);
+					break;
+				case "sorted forward":
+					for (byte i = 0; i < array.Length; i++)
+					{
+						array[i] = i;
+					}
+					break;
+				case "sorted reverse":
+					for (byte i = 0; i < array.Length; i++)
+					{
+						array[array.Length - 1 - i] = i;
+					}
+					break;
+				default:
+					Shuffle(array);
+					break;
+			}
 			DrawArray();
 		}
 
@@ -259,11 +301,12 @@ namespace Visual_Sort
 			}
 			ThreadStart threadStart = delegate()
 			{
-				comboBoxSortAlgorithms.Enabled = false;
+				comboBoxSortAlgorithm.Enabled = false;
 				buttonShuffle.Enabled = false;
 				buttonSort.Enabled = false;
 				BubbleSort();
-				comboBoxSortAlgorithms.Enabled = true;
+				if (checkBoxFinalEvent.Checked) ApplyFinalEvent();
+				comboBoxSortAlgorithm.Enabled = true;
 				buttonShuffle.Enabled = true;
 				buttonSort.Enabled = true;
 			};
