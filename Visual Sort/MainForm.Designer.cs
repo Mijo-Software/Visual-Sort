@@ -50,6 +50,8 @@
 			this.labelVisualizationScheme = new System.Windows.Forms.Label();
 			this.labelShuffleMode = new System.Windows.Forms.Label();
 			this.comboBoxShuffleMode = new System.Windows.Forms.ComboBox();
+			this.comboBoxDrawMode = new System.Windows.Forms.ComboBox();
+			this.label1 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.panelDraw)).BeginInit();
 			this.tableLayoutPanel.SuspendLayout();
 			this.groupBoxVisualizationDepth.SuspendLayout();
@@ -57,7 +59,7 @@
 			// 
 			// buttonSort
 			// 
-			this.buttonSort.Location = new System.Drawing.Point(143, 195);
+			this.buttonSort.Location = new System.Drawing.Point(143, 222);
 			this.buttonSort.Name = "buttonSort";
 			this.buttonSort.Size = new System.Drawing.Size(125, 23);
 			this.buttonSort.TabIndex = 10;
@@ -67,7 +69,7 @@
 			// 
 			// buttonShuffle
 			// 
-			this.buttonShuffle.Location = new System.Drawing.Point(12, 195);
+			this.buttonShuffle.Location = new System.Drawing.Point(12, 222);
 			this.buttonShuffle.Name = "buttonShuffle";
 			this.buttonShuffle.Size = new System.Drawing.Size(125, 23);
 			this.buttonShuffle.TabIndex = 9;
@@ -89,7 +91,7 @@
 			// panelDraw
 			// 
 			this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panelDraw.Location = new System.Drawing.Point(12, 224);
+			this.panelDraw.Location = new System.Drawing.Point(12, 251);
 			this.panelDraw.Name = "panelDraw";
 			this.panelDraw.Size = new System.Drawing.Size(256, 256);
 			this.panelDraw.TabIndex = 4;
@@ -106,7 +108,7 @@
 			this.tableLayoutPanel.Controls.Add(this.labelSwap, 0, 1);
 			this.tableLayoutPanel.Controls.Add(this.labelComparisonValue, 1, 0);
 			this.tableLayoutPanel.Controls.Add(this.labelComparison, 0, 0);
-			this.tableLayoutPanel.Location = new System.Drawing.Point(13, 487);
+			this.tableLayoutPanel.Location = new System.Drawing.Point(13, 514);
 			this.tableLayoutPanel.Name = "tableLayoutPanel";
 			this.tableLayoutPanel.RowCount = 3;
 			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -197,7 +199,7 @@
 			// 
 			this.groupBoxVisualizationDepth.Controls.Add(this.radioBoxVisualizationDepthDetailed);
 			this.groupBoxVisualizationDepth.Controls.Add(this.radioBoxVisualizationDepthSimple);
-			this.groupBoxVisualizationDepth.Location = new System.Drawing.Point(12, 94);
+			this.groupBoxVisualizationDepth.Location = new System.Drawing.Point(12, 121);
 			this.groupBoxVisualizationDepth.Name = "groupBoxVisualizationDepth";
 			this.groupBoxVisualizationDepth.Size = new System.Drawing.Size(256, 48);
 			this.groupBoxVisualizationDepth.TabIndex = 6;
@@ -231,7 +233,7 @@
 			this.checkBoxDataProcessingSpeed.AutoSize = true;
 			this.checkBoxDataProcessingSpeed.Checked = true;
 			this.checkBoxDataProcessingSpeed.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBoxDataProcessingSpeed.Location = new System.Drawing.Point(12, 149);
+			this.checkBoxDataProcessingSpeed.Location = new System.Drawing.Point(12, 176);
 			this.checkBoxDataProcessingSpeed.Name = "checkBoxDataProcessingSpeed";
 			this.checkBoxDataProcessingSpeed.Size = new System.Drawing.Size(163, 17);
 			this.checkBoxDataProcessingSpeed.TabIndex = 7;
@@ -243,7 +245,7 @@
 			this.checkBoxFinalEvent.AutoSize = true;
 			this.checkBoxFinalEvent.Checked = true;
 			this.checkBoxFinalEvent.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBoxFinalEvent.Location = new System.Drawing.Point(12, 172);
+			this.checkBoxFinalEvent.Location = new System.Drawing.Point(12, 199);
 			this.checkBoxFinalEvent.Name = "checkBoxFinalEvent";
 			this.checkBoxFinalEvent.Size = new System.Drawing.Size(104, 17);
 			this.checkBoxFinalEvent.TabIndex = 8;
@@ -290,11 +292,34 @@
 			this.comboBoxShuffleMode.Size = new System.Drawing.Size(147, 21);
 			this.comboBoxShuffleMode.TabIndex = 5;
 			// 
+			// comboBoxDrawMode
+			// 
+			this.comboBoxDrawMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxDrawMode.FormattingEnabled = true;
+			this.comboBoxDrawMode.Items.AddRange(new object[] {
+            "draw lines",
+            "fill rectangles"});
+			this.comboBoxDrawMode.Location = new System.Drawing.Point(121, 94);
+			this.comboBoxDrawMode.Name = "comboBoxDrawMode";
+			this.comboBoxDrawMode.Size = new System.Drawing.Size(147, 21);
+			this.comboBoxDrawMode.TabIndex = 12;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(9, 97);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(64, 13);
+			this.label1.TabIndex = 13;
+			this.label1.Text = "Draw mode:";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(283, 551);
+			this.ClientSize = new System.Drawing.Size(283, 580);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.comboBoxDrawMode);
 			this.Controls.Add(this.labelShuffleMode);
 			this.Controls.Add(this.comboBoxShuffleMode);
 			this.Controls.Add(this.labelVisualizationScheme);
@@ -348,6 +373,8 @@
 		private System.Windows.Forms.Label labelVisualizationScheme;
 		private System.Windows.Forms.Label labelShuffleMode;
 		private System.Windows.Forms.ComboBox comboBoxShuffleMode;
+		private System.Windows.Forms.ComboBox comboBoxDrawMode;
+		private System.Windows.Forms.Label label1;
 	}
 }
 
