@@ -82,10 +82,12 @@
 			this.comboBoxSortAlgorithm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxSortAlgorithm.FormattingEnabled = true;
 			this.comboBoxSortAlgorithm.Items.AddRange(new object[] {
-            "Bubble Sort"});
-			this.comboBoxSortAlgorithm.Location = new System.Drawing.Point(121, 12);
+            "Bubble Sort (original version)",
+            "Bubble Sort (premature termination)",
+            "Bubble Sort (comparative reduction)"});
+			this.comboBoxSortAlgorithm.Location = new System.Drawing.Point(89, 12);
 			this.comboBoxSortAlgorithm.Name = "comboBoxSortAlgorithm";
-			this.comboBoxSortAlgorithm.Size = new System.Drawing.Size(147, 21);
+			this.comboBoxSortAlgorithm.Size = new System.Drawing.Size(179, 21);
 			this.comboBoxSortAlgorithm.TabIndex = 1;
 			// 
 			// panelDraw

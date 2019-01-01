@@ -219,7 +219,7 @@ namespace Visual_Sort
 			y = temp;
 		}
 
-		private void BubbleSort()
+		private void BubbleSort1()
 		{
 			comparison = 0;
 			swap = 0;
@@ -247,6 +247,76 @@ namespace Visual_Sort
 					ShowProcessingInformation();
 				}
 			}
+		}
+
+		private void BubbleSort2()
+		{
+			bool flipped = false;
+			comparison = 0;
+			swap = 0;
+			byte n = (byte)array.Length;
+			do
+			{
+				flipped = false;
+				for (byte i = 0; i < n - 1; i++)
+				{
+					comparison++;
+					if (array[i] > array[i + 1])
+					{
+						swap++;
+						Swap(ref array[i], ref array[i + 1]);
+						flipped = true;
+						if (radioBoxVisualizationDepthDetailed.Checked)
+						{
+							DrawArray((byte)(i + 1));
+							MeasureTimeDiff();
+							ShowProcessingInformation();
+						}
+					}
+				}
+				n--;
+				if (radioBoxVisualizationDepthSimple.Checked)
+				{
+					DrawArray();
+					MeasureTimeDiff();
+					ShowProcessingInformation();
+				}
+			} while (flipped);
+		}
+
+		private void BubbleSort3()
+		{
+			comparison = 0;
+			swap = 0;
+			byte n = (byte)array.Length;
+			byte newn = 0;
+			do
+			{
+				newn = 1;
+				for (byte i = 0; i < n - 1; i++)
+				{
+					comparison++;
+					if (array[i] > array[i + 1])
+					{
+						swap++;
+						newn = (byte)(i + 1);
+						Swap(ref array[i], ref array[i + 1]);
+						if (radioBoxVisualizationDepthDetailed.Checked)
+						{
+							DrawArray((byte)(i + 1));
+							MeasureTimeDiff();
+							ShowProcessingInformation();
+						}
+					}
+				}
+				n = newn;
+				if (radioBoxVisualizationDepthSimple.Checked)
+				{
+					DrawArray();
+					MeasureTimeDiff();
+					ShowProcessingInformation();
+				}
+			} while (n > 1);
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)
@@ -332,7 +402,18 @@ namespace Visual_Sort
 				comboBoxSortAlgorithm.Enabled = false;
 				buttonShuffle.Enabled = false;
 				buttonSort.Enabled = false;
-				BubbleSort();
+				switch (comboBoxSortAlgorithm.SelectedItem.ToString())
+				{
+					case "Bubble Sort (original version)":
+						BubbleSort1();
+						break;
+					case "Bubble Sort (premature termination)":
+						BubbleSort2();
+						break;
+					case "Bubble Sort (comparative reduction)":
+						BubbleSort3();
+						break;
+				}
 				if (checkBoxFinalEvent.Checked) ApplyFinalEvent();
 				comboBoxSortAlgorithm.Enabled = true;
 				buttonShuffle.Enabled = true;
