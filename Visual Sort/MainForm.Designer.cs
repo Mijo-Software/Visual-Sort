@@ -62,7 +62,7 @@
 			this.buttonSort.Location = new System.Drawing.Point(143, 222);
 			this.buttonSort.Name = "buttonSort";
 			this.buttonSort.Size = new System.Drawing.Size(125, 23);
-			this.buttonSort.TabIndex = 10;
+			this.buttonSort.TabIndex = 12;
 			this.buttonSort.Text = "Start";
 			this.buttonSort.UseVisualStyleBackColor = true;
 			this.buttonSort.Click += new System.EventHandler(this.ButtonSort_Click);
@@ -72,7 +72,7 @@
 			this.buttonShuffle.Location = new System.Drawing.Point(12, 222);
 			this.buttonShuffle.Name = "buttonShuffle";
 			this.buttonShuffle.Size = new System.Drawing.Size(125, 23);
-			this.buttonShuffle.TabIndex = 9;
+			this.buttonShuffle.TabIndex = 11;
 			this.buttonShuffle.Text = "Shuffle";
 			this.buttonShuffle.UseVisualStyleBackColor = true;
 			this.buttonShuffle.Click += new System.EventHandler(this.ButtonShuffle_Click);
@@ -81,10 +81,6 @@
 			// 
 			this.comboBoxSortAlgorithm.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxSortAlgorithm.FormattingEnabled = true;
-			this.comboBoxSortAlgorithm.Items.AddRange(new object[] {
-            "Bubble Sort (original version)",
-            "Bubble Sort (premature termination)",
-            "Bubble Sort (comparative reduction)"});
 			this.comboBoxSortAlgorithm.Location = new System.Drawing.Point(89, 12);
 			this.comboBoxSortAlgorithm.Name = "comboBoxSortAlgorithm";
 			this.comboBoxSortAlgorithm.Size = new System.Drawing.Size(179, 21);
@@ -117,7 +113,7 @@
 			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
 			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
 			this.tableLayoutPanel.Size = new System.Drawing.Size(255, 57);
-			this.tableLayoutPanel.TabIndex = 11;
+			this.tableLayoutPanel.TabIndex = 13;
 			// 
 			// labelRuntimeValue
 			// 
@@ -189,9 +185,6 @@
 			// 
 			this.comboBoxVisualizationScheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxVisualizationScheme.FormattingEnabled = true;
-			this.comboBoxVisualizationScheme.Items.AddRange(new object[] {
-            "lines",
-            "dotes"});
 			this.comboBoxVisualizationScheme.Location = new System.Drawing.Point(121, 40);
 			this.comboBoxVisualizationScheme.Name = "comboBoxVisualizationScheme";
 			this.comboBoxVisualizationScheme.Size = new System.Drawing.Size(147, 21);
@@ -204,7 +197,7 @@
 			this.groupBoxVisualizationDepth.Location = new System.Drawing.Point(12, 121);
 			this.groupBoxVisualizationDepth.Name = "groupBoxVisualizationDepth";
 			this.groupBoxVisualizationDepth.Size = new System.Drawing.Size(256, 48);
-			this.groupBoxVisualizationDepth.TabIndex = 6;
+			this.groupBoxVisualizationDepth.TabIndex = 8;
 			this.groupBoxVisualizationDepth.TabStop = false;
 			this.groupBoxVisualizationDepth.Text = "Visualization depth";
 			// 
@@ -238,7 +231,7 @@
 			this.checkBoxDataProcessingSpeed.Location = new System.Drawing.Point(12, 176);
 			this.checkBoxDataProcessingSpeed.Name = "checkBoxDataProcessingSpeed";
 			this.checkBoxDataProcessingSpeed.Size = new System.Drawing.Size(163, 17);
-			this.checkBoxDataProcessingSpeed.TabIndex = 7;
+			this.checkBoxDataProcessingSpeed.TabIndex = 9;
 			this.checkBoxDataProcessingSpeed.Text = "Show data processing speed";
 			this.checkBoxDataProcessingSpeed.UseVisualStyleBackColor = true;
 			// 
@@ -250,7 +243,7 @@
 			this.checkBoxFinalEvent.Location = new System.Drawing.Point(12, 199);
 			this.checkBoxFinalEvent.Name = "checkBoxFinalEvent";
 			this.checkBoxFinalEvent.Size = new System.Drawing.Size(104, 17);
-			this.checkBoxFinalEvent.TabIndex = 8;
+			this.checkBoxFinalEvent.TabIndex = 10;
 			this.checkBoxFinalEvent.Text = "Apply final event";
 			this.checkBoxFinalEvent.UseVisualStyleBackColor = true;
 			// 
@@ -285,10 +278,6 @@
 			// 
 			this.comboBoxShuffleMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxShuffleMode.FormattingEnabled = true;
-			this.comboBoxShuffleMode.Items.AddRange(new object[] {
-            "random",
-            "sorted forward",
-            "sorted reverse"});
 			this.comboBoxShuffleMode.Location = new System.Drawing.Point(121, 67);
 			this.comboBoxShuffleMode.Name = "comboBoxShuffleMode";
 			this.comboBoxShuffleMode.Size = new System.Drawing.Size(147, 21);
@@ -298,13 +287,10 @@
 			// 
 			this.comboBoxDrawMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxDrawMode.FormattingEnabled = true;
-			this.comboBoxDrawMode.Items.AddRange(new object[] {
-            "draw lines",
-            "fill rectangles"});
 			this.comboBoxDrawMode.Location = new System.Drawing.Point(121, 94);
 			this.comboBoxDrawMode.Name = "comboBoxDrawMode";
 			this.comboBoxDrawMode.Size = new System.Drawing.Size(147, 21);
-			this.comboBoxDrawMode.TabIndex = 12;
+			this.comboBoxDrawMode.TabIndex = 7;
 			// 
 			// label1
 			// 
@@ -312,7 +298,7 @@
 			this.label1.Location = new System.Drawing.Point(9, 97);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(64, 13);
-			this.label1.TabIndex = 13;
+			this.label1.TabIndex = 6;
 			this.label1.Text = "Draw mode:";
 			// 
 			// MainForm

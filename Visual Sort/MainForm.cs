@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using Visual_Sort.Properties;
 
 namespace Visual_Sort
 {
@@ -53,6 +54,14 @@ namespace Visual_Sort
 			}
 		}
 
+		private void InitArrayReverse()
+		{
+			for (byte i = 0; i < array.Length; i++)
+			{
+				array[array.Length - 1 - i] = i;
+			}
+		}
+
 		private void MeasureTimeDiff()
 		{
 			dtMeasurementsEnd = DateTime.Now;
@@ -76,17 +85,18 @@ namespace Visual_Sort
 
 		private void ApplyFinalEvent()
 		{
+			string strLines = Resources.strLines;
 			for (byte i = 0; i < array.Length - 1; i++)
 			{
-				switch (comboBoxVisualizationScheme.SelectedItem.ToString())
+				switch (comboBoxVisualizationScheme.SelectedIndex)
 				{
-					case "lines":
+					case 0: //lines
 						{
 							graphics.DrawLine(penFinal, i, panelDraw.Height - array[i], i, panelDraw.Height);
 							//graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
 							break;
 						}
-					case "dotes":
+					case 1: //dotes
 						{
 							graphics.FillRectangle(brushFinal, i, panelDraw.Height - array[i], 1, 1);
 							break;
@@ -115,24 +125,24 @@ namespace Visual_Sort
 			/*bmpSave = new Bitmap(panelDraw.Width, panelDraw.Height);
 			graphics = Graphics.FromImage(bmpSave);
 			panelDraw.Image = bmpSave;*/
-			if (comboBoxVisualizationScheme.SelectedItem.ToString() != "lines") graphics.Clear(SystemColors.Control);
+			if (comboBoxVisualizationScheme.SelectedItem.ToString() != Resources.strLines) graphics.Clear(SystemColors.Control);
 			for (byte i = 0; i < array.Length - 1; i++)
 			{
-				switch (comboBoxVisualizationScheme.SelectedItem.ToString())
+				switch (comboBoxVisualizationScheme.SelectedIndex)
 				{
-					case "lines":
-						if (comboBoxDrawMode.SelectedItem.ToString() == "draw lines")
+					case 0: //lines
+						if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strDrawLines)
 						{
 							graphics.DrawLine(penDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
 							graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
 						}
-						else if (comboBoxDrawMode.SelectedItem.ToString() == "fill rectangles")
+						else if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strFillRectangles)
 						{
 							graphics.FillRectangle(brushDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
 							graphics.FillRectangle(brushControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
 						}
 						break;
-					case "dotes":
+					case 1: //dotes
 						graphics.FillRectangle(brushDraw, i, panelDraw.Height - array[i], 1, 1);
 						break;
 				}
@@ -145,44 +155,44 @@ namespace Visual_Sort
 			/*bmpSave = new Bitmap(panelDraw.Width, panelDraw.Height);
 			graphics = Graphics.FromImage(bmpSave);
 			panelDraw.Image = bmpSave;*/
-			if (comboBoxVisualizationScheme.SelectedItem.ToString() != "lines") graphics.Clear(SystemColors.Control);
+			if (comboBoxVisualizationScheme.SelectedItem.ToString() != Resources.strLines) graphics.Clear(SystemColors.Control);
 			for (byte i = 0; i < array.Length - 1; i++)
 			{
-				switch (comboBoxVisualizationScheme.SelectedItem.ToString())
+				switch (comboBoxVisualizationScheme.SelectedIndex)
 				{
-					case "lines":
+					case 0: //lines
 						if (radioBoxVisualizationDepthDetailed.Checked && (marker == i))
 						{
-							if (comboBoxDrawMode.SelectedItem.ToString() == "draw lines")
+							if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strDrawLines)
 							{
 								graphics.DrawLine(penMarker, i, panelDraw.Height - array[i], i, panelDraw.Height);
 							}
-							else if (comboBoxDrawMode.SelectedItem.ToString() == "fill rectangles")
+							else if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strFillRectangles)
 							{
 								graphics.FillRectangle(brushMarker, i, panelDraw.Height - array[i], i, panelDraw.Height);
 							}
 						}
 						else
 						{
-							if (comboBoxDrawMode.SelectedItem.ToString() == "draw lines")
+							if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strDrawLines)
 							{
 								graphics.DrawLine(penDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
 							}
-							else if (comboBoxDrawMode.SelectedItem.ToString() == "fill rectangles")
+							else if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strFillRectangles)
 							{
 								graphics.FillRectangle(brushDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
 							}
 						}
-						if (comboBoxDrawMode.SelectedItem.ToString() == "draw lines")
+						if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strDrawLines)
 						{
 							graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
 						}
-						else if (comboBoxDrawMode.SelectedItem.ToString() == "fill rectangles")
+						else if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strFillRectangles)
 						{
 							graphics.FillRectangle(brushControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
 						}
 						break;
-					case "dotes":
+					case 1: //dotes
 					{
 						if (radioBoxVisualizationDepthDetailed.Checked && (marker == i))
 						{
@@ -330,9 +340,23 @@ namespace Visual_Sort
 				BindingFlags.Instance |
 				BindingFlags.NonPublic, null, panelDraw, new object[] { true });
 			graphics = panelDraw.CreateGraphics();
+			comboBoxSortAlgorithm.Items.AddRange(new object[] {
+				Resources.strBubbleSort1,
+				Resources.strBubbleSort2,
+				Resources.strBubbleSort3});
 			comboBoxSortAlgorithm.SelectedIndex = 0;
+			comboBoxVisualizationScheme.Items.AddRange(new object[] {
+				Resources.strLines,
+				Resources.strDotes});
 			comboBoxVisualizationScheme.SelectedIndex = 0;
+			comboBoxShuffleMode.Items.AddRange(new object[] {
+				Resources.strRandom,
+				Resources.strSortedForward,
+				Resources.strSortedReverse});
 			comboBoxShuffleMode.SelectedIndex = 0;
+			comboBoxDrawMode.Items.AddRange(new object[] {
+				Resources.strDrawLines,
+				Resources.strFillRectangles});
 			comboBoxDrawMode.SelectedIndex = 0;
 			InitArray();
 		}
@@ -354,23 +378,17 @@ namespace Visual_Sort
 			}
 			labelComparisonValue.Text =
 				labelSwapValue.Text =
-				labelRuntimeValue.Text = "0";
-			switch (comboBoxShuffleMode.SelectedItem.ToString())
+				labelRuntimeValue.Text = Resources.strNumberZero;
+			switch (comboBoxShuffleMode.SelectedIndex)
 			{
-				case "random":
+				case 0: //random
 					Shuffle(array);
 					break;
-				case "sorted forward":
-					for (byte i = 0; i < array.Length; i++)
-					{
-						array[i] = i;
-					}
+				case 1: //sorted forward
+					InitArray();
 					break;
-				case "sorted reverse":
-					for (byte i = 0; i < array.Length; i++)
-					{
-						array[array.Length - 1 - i] = i;
-					}
+				case 2: //sorted reverse
+					InitArrayReverse();
 					break;
 				default:
 					Shuffle(array);
@@ -387,7 +405,7 @@ namespace Visual_Sort
 			{
 				labelComparisonValue.Text =
 					labelSwapValue.Text =
-					labelRuntimeValue.Text = "0";
+					labelRuntimeValue.Text = Resources.strNumberZero;
 				isShuffled = true;
 				Shuffle(array);
 				DrawArray();
@@ -402,15 +420,15 @@ namespace Visual_Sort
 				comboBoxSortAlgorithm.Enabled = false;
 				buttonShuffle.Enabled = false;
 				buttonSort.Enabled = false;
-				switch (comboBoxSortAlgorithm.SelectedItem.ToString())
+				switch (comboBoxSortAlgorithm.SelectedIndex)
 				{
-					case "Bubble Sort (original version)":
+					case 0: //Bubble Sort (original version)
 						BubbleSort1();
 						break;
-					case "Bubble Sort (premature termination)":
+					case 1: //Bubble Sort (premature termination)
 						BubbleSort2();
 						break;
-					case "Bubble Sort (comparative reduction)":
+					case 2: //Bubble Sort (comparative reduction)
 						BubbleSort3();
 						break;
 				}
