@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+
 using Visual_Sort.Properties;
 
 namespace Visual_Sort
@@ -15,9 +17,7 @@ namespace Visual_Sort
 
 		private byte[] array = new byte[byte.MaxValue];
 
-		private DateTime dtMeasurementsStart, dtMeasurementsEnd;
-
-		private TimeSpan timeDiff;
+		private Stopwatch watch = new Stopwatch();
 
 		private Graphics graphics;
 
@@ -25,15 +25,13 @@ namespace Visual_Sort
 			penDraw = new Pen(SystemColors.ControlText,1 ),
 			penMarker = new Pen(Color.OrangeRed, 1),
 			penFinal = new Pen(Color.LimeGreen, 1),
-			penControl = new Pen(SystemColors.Control, 1),
-			penTemp;
+			penControl = new Pen(Color.White, 1);
 
 		private SolidBrush
 			brushDraw = new SolidBrush(SystemColors.ControlText),
 			brushMarker = new SolidBrush(Color.OrangeRed),
 			brushFinal = new SolidBrush(Color.LimeGreen),
-			brushControl = new SolidBrush(SystemColors.Control),
-			brushTemp;
+			brushControl = new SolidBrush(Color.White);
 
 		private bool isShuffled = false;
 
@@ -41,10 +39,88 @@ namespace Visual_Sort
 
 		private Bitmap bmpSave;
 
-		public MainForm()
+		#region Assemblyattributaccessoren
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public string GetAssemblyTitle()
 		{
-			InitializeComponent();
+			object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyTitleAttribute), inherit: false);
+			if (attributes.Length > 0)
+			{
+				AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+				if (titleAttribute.Title != "")
+				{
+					return titleAttribute.Title;
+				}
+			}
+			return System.IO.Path.GetFileNameWithoutExtension(path: Assembly.GetExecutingAssembly().CodeBase);
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public string GetAssemblyVersion() => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public string GetAssemblyDescription()
+		{
+			object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyDescriptionAttribute), inherit: false);
+			if (attributes.Length == 0)
+			{
+				return "";
+			}
+			return ((AssemblyDescriptionAttribute)attributes[0]).Description;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public string GetAssemblyProduct()
+		{
+			object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyProductAttribute), inherit: false);
+			if (attributes.Length == 0)
+			{
+				return "";
+			}
+			return ((AssemblyProductAttribute)attributes[0]).Product;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public string GetAssemblyCopyright()
+		{
+			object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyCopyrightAttribute), inherit: false);
+			if (attributes.Length == 0)
+			{
+				return "";
+			}
+			return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public string GetAssemblyCompany()
+		{
+			object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType: typeof(AssemblyCompanyAttribute), inherit: false);
+			if (attributes.Length == 0)
+			{
+				return "";
+			}
+			return ((AssemblyCompanyAttribute)attributes[0]).Company;
+		}
+		#endregion
+
+		public MainForm() => InitializeComponent();
 
 		private void InitArray()
 		{
@@ -62,19 +138,14 @@ namespace Visual_Sort
 			}
 		}
 
-		private void MeasureTimeDiff()
-		{
-			dtMeasurementsEnd = DateTime.Now;
-			timeDiff = dtMeasurementsEnd - dtMeasurementsStart;
-			labelRuntimeValue.Text = timeDiff.TotalSeconds.ToString("#.## 'sec'");
-		}
+		private void MeasureTime() => labelRuntimeValue.Text = watch.Elapsed.ToString();
 
 		private void ShowProcessingInformation()
 		{
 			if (checkBoxDataProcessingSpeed.Checked)
 			{
-				labelComparisonValue.Text = comparison.ToString() + (comparison / timeDiff.TotalSeconds).ToString("' ('#.## 'per sec)'");
-				labelSwapValue.Text = swap.ToString() + (swap / timeDiff.TotalSeconds).ToString("' ('#.## 'per sec)'");
+				labelComparisonValue.Text = comparison.ToString() + (comparison / watch.Elapsed.TotalSeconds).ToString("' ('#.## 'per sec)'");
+				labelSwapValue.Text = swap.ToString() + (swap / watch.Elapsed.TotalSeconds).ToString("' ('#.## 'per sec)'");
 			}
 			else
 			{
@@ -86,26 +157,26 @@ namespace Visual_Sort
 		private void ApplyFinalEvent()
 		{
 			string strLines = Resources.strLines;
-			for (byte i = 0; i < array.Length - 1; i++)
+			for (byte i = 0; i < array.Length; i++)
 			{
 				switch (comboBoxVisualizationScheme.SelectedIndex)
 				{
 					case 0: //lines
 						{
-							graphics.DrawLine(penFinal, i, panelDraw.Height - array[i], i, panelDraw.Height);
-							//graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
+							graphics.DrawLine(penFinal, i + 1, panelDraw.Height - array[i], i + 1, panelDraw.Height);
+							//graphics.DrawLine(penControl, i + 1, 0, i + 1, panelDraw.Height - array[i]);
 							break;
 						}
 					case 1: //dotes
 						{
-							graphics.FillRectangle(brushFinal, i, panelDraw.Height - array[i], 1, 1);
+							graphics.FillRectangle(brushFinal, i + 1, panelDraw.Height - array[i], 1, 1);
 							break;
 						}
 				}
 			}
 		}
 
-		delegate void SetControlValueCallback(Control pnlSort);
+		private delegate void SetControlValueCallback(Control pnlSort);
 
 		private void RefreshPanel(Control pnlSort)
 		{
@@ -125,7 +196,7 @@ namespace Visual_Sort
 			/*bmpSave = new Bitmap(panelDraw.Width, panelDraw.Height);
 			graphics = Graphics.FromImage(bmpSave);
 			panelDraw.Image = bmpSave;*/
-			if (comboBoxVisualizationScheme.SelectedItem.ToString() != Resources.strLines) graphics.Clear(SystemColors.Control);
+			if (comboBoxVisualizationScheme.SelectedItem.ToString() != Resources.strLines) graphics.Clear(panelDraw.BackColor);
 			for (byte i = 0; i < array.Length - 1; i++)
 			{
 				switch (comboBoxVisualizationScheme.SelectedIndex)
@@ -133,17 +204,17 @@ namespace Visual_Sort
 					case 0: //lines
 						if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strDrawLines)
 						{
-							graphics.DrawLine(penDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
-							graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
+							graphics.DrawLine(penDraw, i + 1, panelDraw.Height - array[i], i + 1, panelDraw.Height);
+							graphics.DrawLine(penControl, i + 1, 0, i + 1, panelDraw.Height - array[i]);
 						}
 						else if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strFillRectangles)
 						{
-							graphics.FillRectangle(brushDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
-							graphics.FillRectangle(brushControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
+							graphics.FillRectangle(brushDraw, i + 1, panelDraw.Height - array[i], i + 1, panelDraw.Height);
+							graphics.FillRectangle(brushControl, i + 1, 0, i + 1, panelDraw.Height - array[i]);
 						}
 						break;
 					case 1: //dotes
-						graphics.FillRectangle(brushDraw, i, panelDraw.Height - array[i], 1, 1);
+						graphics.FillRectangle(brushDraw, i + 1, panelDraw.Height - array[i], 1, 1);
 						break;
 				}
 			}
@@ -155,7 +226,7 @@ namespace Visual_Sort
 			/*bmpSave = new Bitmap(panelDraw.Width, panelDraw.Height);
 			graphics = Graphics.FromImage(bmpSave);
 			panelDraw.Image = bmpSave;*/
-			if (comboBoxVisualizationScheme.SelectedItem.ToString() != Resources.strLines) graphics.Clear(SystemColors.Control);
+			if (comboBoxVisualizationScheme.SelectedItem.ToString() != Resources.strLines) graphics.Clear(panelDraw.BackColor);
 			for (byte i = 0; i < array.Length - 1; i++)
 			{
 				switch (comboBoxVisualizationScheme.SelectedIndex)
@@ -165,45 +236,43 @@ namespace Visual_Sort
 						{
 							if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strDrawLines)
 							{
-								graphics.DrawLine(penMarker, i, panelDraw.Height - array[i], i, panelDraw.Height);
+								graphics.DrawLine(penMarker, i + 1, panelDraw.Height - array[i], i + 1, panelDraw.Height);
 							}
 							else if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strFillRectangles)
 							{
-								graphics.FillRectangle(brushMarker, i, panelDraw.Height - array[i], i, panelDraw.Height);
+								graphics.FillRectangle(brushMarker, i + 1, panelDraw.Height - array[i], i + 1, panelDraw.Height);
 							}
 						}
 						else
 						{
 							if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strDrawLines)
 							{
-								graphics.DrawLine(penDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
+								graphics.DrawLine(penDraw, i + 1, panelDraw.Height - array[i], i + 1, panelDraw.Height);
 							}
 							else if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strFillRectangles)
 							{
-								graphics.FillRectangle(brushDraw, i, panelDraw.Height - array[i], i, panelDraw.Height);
+								graphics.FillRectangle(brushDraw, i + 1, panelDraw.Height - array[i], i + 1, panelDraw.Height);
 							}
 						}
 						if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strDrawLines)
 						{
-							graphics.DrawLine(penControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
+							graphics.DrawLine(penControl, i + 1, 0, i + 1, panelDraw.Height - array[i]);
 						}
 						else if (comboBoxDrawMode.SelectedItem.ToString() == Resources.strFillRectangles)
 						{
-							graphics.FillRectangle(brushControl, i, 0, i, 0 + (panelDraw.Height - array[i]));
+							graphics.FillRectangle(brushControl, i + 1, 0, i + 1, panelDraw.Height - array[i]);
 						}
 						break;
 					case 1: //dotes
-					{
 						if (radioBoxVisualizationDepthDetailed.Checked && (marker == i))
 						{
-							graphics.FillRectangle(brushMarker, i, panelDraw.Height - array[i], 1, 1);
+							graphics.FillRectangle(brushMarker, i + 1, panelDraw.Height - array[i], 1, 1);
 						}
 						else
 						{
-							graphics.FillRectangle(brushDraw, i, panelDraw.Height - array[i], 1, 1);
+							graphics.FillRectangle(brushDraw, i + 1, panelDraw.Height - array[i], 1, 1);
 						}
 						break;
-					}
 				}
 			}
 			//RefreshPanel(panelDraw);
@@ -245,7 +314,7 @@ namespace Visual_Sort
 						if (radioBoxVisualizationDepthDetailed.Checked)
 						{
 							DrawArray((byte)(j + 1));
-							MeasureTimeDiff();
+							MeasureTime();
 							ShowProcessingInformation();
 						}
 					}
@@ -253,9 +322,16 @@ namespace Visual_Sort
 				if (radioBoxVisualizationDepthSimple.Checked)
 				{
 					DrawArray();
-					MeasureTimeDiff();
+					MeasureTime();
 					ShowProcessingInformation();
 				}
+			}
+			if (radioBoxVisualizationDepthNone.Checked)
+			{
+				graphics.Clear(panelDraw.BackColor);
+				//RefreshPanel(panelDraw);
+				MeasureTime();
+				ShowProcessingInformation();
 			}
 		}
 
@@ -279,7 +355,7 @@ namespace Visual_Sort
 						if (radioBoxVisualizationDepthDetailed.Checked)
 						{
 							DrawArray((byte)(i + 1));
-							MeasureTimeDiff();
+							MeasureTime();
 							ShowProcessingInformation();
 						}
 					}
@@ -288,10 +364,17 @@ namespace Visual_Sort
 				if (radioBoxVisualizationDepthSimple.Checked)
 				{
 					DrawArray();
-					MeasureTimeDiff();
+					MeasureTime();
 					ShowProcessingInformation();
 				}
 			} while (flipped);
+			if (radioBoxVisualizationDepthNone.Checked)
+			{
+				graphics.Clear(panelDraw.BackColor);
+				//RefreshPanel(panelDraw);
+				MeasureTime();
+				ShowProcessingInformation();
+			}
 		}
 
 		private void BubbleSort3()
@@ -314,7 +397,7 @@ namespace Visual_Sort
 						if (radioBoxVisualizationDepthDetailed.Checked)
 						{
 							DrawArray((byte)(i + 1));
-							MeasureTimeDiff();
+							MeasureTime();
 							ShowProcessingInformation();
 						}
 					}
@@ -323,10 +406,66 @@ namespace Visual_Sort
 				if (radioBoxVisualizationDepthSimple.Checked)
 				{
 					DrawArray();
-					MeasureTimeDiff();
+					MeasureTime();
 					ShowProcessingInformation();
 				}
 			} while (n > 1);
+			if (radioBoxVisualizationDepthNone.Checked)
+			{
+				graphics.Clear(panelDraw.BackColor);
+				//RefreshPanel(panelDraw);
+				MeasureTime();
+				ShowProcessingInformation();
+			}
+		}
+
+		private void SetStatusbar(object sender, EventArgs e)
+		{
+			if (sender is Button button)
+			{
+				toolStripStatusLabel.Text = button.AccessibleDescription;
+			}
+			else if (sender is Label label)
+			{
+				toolStripStatusLabel.Text = label.AccessibleDescription;
+			}
+			else if (sender is ComboBox comboBox)
+			{
+				toolStripStatusLabel.Text = comboBox.AccessibleDescription;
+			}
+			else if (sender is RadioButton radioButton)
+			{
+				toolStripStatusLabel.Text = radioButton.AccessibleDescription;
+			}
+			else if (sender is CheckBox checkBox)
+			{
+				toolStripStatusLabel.Text = checkBox.AccessibleDescription;
+			}
+			else if (sender is PictureBox pictureBox)
+			{
+				toolStripStatusLabel.Text = pictureBox.AccessibleDescription;
+			}
+			else if (sender is StatusStrip statusStrip)
+			{
+				toolStripStatusLabel.Text = statusStrip.AccessibleDescription;
+			}
+			else if (sender is GroupBox groupBox)
+			{
+				toolStripStatusLabel.Text = groupBox.AccessibleDescription;
+			}
+			else if (sender is TableLayoutPanel tableLayoutPanel)
+			{
+				toolStripStatusLabel.Text = tableLayoutPanel.AccessibleDescription;
+			}
+			else if (sender is ToolStripStatusLabel toolStripStatusLabel)
+			{
+				toolStripStatusLabel.Text = toolStripStatusLabel.AccessibleDescription;
+			}
+		}
+
+		private void ClearStatusbar(object sender, EventArgs e)
+		{
+			toolStripStatusLabel.Text = "";
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)
@@ -339,12 +478,13 @@ namespace Visual_Sort
 			typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty |
 				BindingFlags.Instance |
 				BindingFlags.NonPublic, null, panelDraw, new object[] { true });
+			ClearStatusbar(null, null);
 			graphics = panelDraw.CreateGraphics();
-			comboBoxSortAlgorithm.Items.AddRange(new object[] {
+			comboBoxSortingAlgorithm.Items.AddRange(new object[] {
 				Resources.strBubbleSort1,
 				Resources.strBubbleSort2,
 				Resources.strBubbleSort3});
-			comboBoxSortAlgorithm.SelectedIndex = 0;
+			comboBoxSortingAlgorithm.SelectedIndex = 0;
 			comboBoxVisualizationScheme.Items.AddRange(new object[] {
 				Resources.strLines,
 				Resources.strDotes});
@@ -394,13 +534,13 @@ namespace Visual_Sort
 					Shuffle(array);
 					break;
 			}
+			graphics.Clear(panelDraw.BackColor);
 			DrawArray();
 		}
 
 		private void ButtonSort_Click(object sender, EventArgs e)
 		{
-			dtMeasurementsStart = DateTime.Now;
-			MeasureTimeDiff();
+			MeasureTime();
 			if (!isShuffled)
 			{
 				labelComparisonValue.Text =
@@ -417,10 +557,12 @@ namespace Visual_Sort
 			}
 			ThreadStart threadStart = delegate()
 			{
-				comboBoxSortAlgorithm.Enabled = false;
+				watch.Reset();
+				watch.Start();
+				comboBoxSortingAlgorithm.Enabled = false;
 				buttonShuffle.Enabled = false;
 				buttonSort.Enabled = false;
-				switch (comboBoxSortAlgorithm.SelectedIndex)
+				switch (comboBoxSortingAlgorithm.SelectedIndex)
 				{
 					case 0: //Bubble Sort (original version)
 						BubbleSort1();
@@ -433,13 +575,14 @@ namespace Visual_Sort
 						break;
 				}
 				if (checkBoxFinalEvent.Checked) ApplyFinalEvent();
-				comboBoxSortAlgorithm.Enabled = true;
+				comboBoxSortingAlgorithm.Enabled = true;
 				buttonShuffle.Enabled = true;
 				buttonSort.Enabled = true;
+				watch.Stop();
 			};
 			thread = new Thread(threadStart);
 			thread.Start();
-			MeasureTimeDiff();
+			MeasureTime();
 		}
 	}
 }
