@@ -55,8 +55,11 @@
 			this.comboBoxDrawMode = new System.Windows.Forms.ComboBox();
 			this.labelDrawMode = new System.Windows.Forms.Label();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
+			this.buttonSaveLogging = new System.Windows.Forms.Button();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
 			((System.ComponentModel.ISupportInitialize)(this.panelDraw)).BeginInit();
 			this.tableLayoutPanel.SuspendLayout();
 			this.groupBoxVisualizationDepth.SuspendLayout();
@@ -68,10 +71,10 @@
 			this.buttonSort.AccessibleDescription = "Start the sorting";
 			this.buttonSort.AccessibleName = "Start";
 			this.buttonSort.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-			this.buttonSort.Location = new System.Drawing.Point(143, 240);
+			this.buttonSort.Location = new System.Drawing.Point(143, 263);
 			this.buttonSort.Name = "buttonSort";
 			this.buttonSort.Size = new System.Drawing.Size(125, 23);
-			this.buttonSort.TabIndex = 12;
+			this.buttonSort.TabIndex = 13;
 			this.buttonSort.Text = "S&tart";
 			this.toolTip.SetToolTip(this.buttonSort, "Start");
 			this.buttonSort.UseVisualStyleBackColor = true;
@@ -86,10 +89,10 @@
 			this.buttonShuffle.AccessibleDescription = "Shuffle the field";
 			this.buttonShuffle.AccessibleName = "Shuffle";
 			this.buttonShuffle.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-			this.buttonShuffle.Location = new System.Drawing.Point(12, 240);
+			this.buttonShuffle.Location = new System.Drawing.Point(12, 263);
 			this.buttonShuffle.Name = "buttonShuffle";
 			this.buttonShuffle.Size = new System.Drawing.Size(125, 23);
-			this.buttonShuffle.TabIndex = 11;
+			this.buttonShuffle.TabIndex = 12;
 			this.buttonShuffle.Text = "S&huffle";
 			this.toolTip.SetToolTip(this.buttonShuffle, "Shuffle");
 			this.buttonShuffle.UseVisualStyleBackColor = true;
@@ -152,7 +155,7 @@
 			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
 			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
 			this.tableLayoutPanel.Size = new System.Drawing.Size(255, 57);
-			this.tableLayoutPanel.TabIndex = 13;
+			this.tableLayoutPanel.TabIndex = 15;
 			// 
 			// labelRuntimeValue
 			// 
@@ -321,7 +324,7 @@
 			this.radioBoxVisualizationDepthDetailed.AccessibleName = "Detailed visualization depth";
 			this.radioBoxVisualizationDepthDetailed.AccessibleRole = System.Windows.Forms.AccessibleRole.RadioButton;
 			this.radioBoxVisualizationDepthDetailed.AutoSize = true;
-			this.radioBoxVisualizationDepthDetailed.Location = new System.Drawing.Point(146, 20);
+			this.radioBoxVisualizationDepthDetailed.Location = new System.Drawing.Point(152, 20);
 			this.radioBoxVisualizationDepthDetailed.Name = "radioBoxVisualizationDepthDetailed";
 			this.radioBoxVisualizationDepthDetailed.Size = new System.Drawing.Size(77, 17);
 			this.radioBoxVisualizationDepthDetailed.TabIndex = 2;
@@ -340,7 +343,7 @@
 			this.radioBoxVisualizationDepthSimple.AccessibleRole = System.Windows.Forms.AccessibleRole.RadioButton;
 			this.radioBoxVisualizationDepthSimple.AutoSize = true;
 			this.radioBoxVisualizationDepthSimple.Checked = true;
-			this.radioBoxVisualizationDepthSimple.Location = new System.Drawing.Point(71, 20);
+			this.radioBoxVisualizationDepthSimple.Location = new System.Drawing.Point(77, 20);
 			this.radioBoxVisualizationDepthSimple.Name = "radioBoxVisualizationDepthSimple";
 			this.radioBoxVisualizationDepthSimple.Size = new System.Drawing.Size(69, 17);
 			this.radioBoxVisualizationDepthSimple.TabIndex = 1;
@@ -495,6 +498,43 @@
 			// 
 			this.toolTip.IsBalloon = true;
 			// 
+			// checkBoxEnableLogging
+			// 
+			this.checkBoxEnableLogging.AccessibleDescription = "Click to enable logging";
+			this.checkBoxEnableLogging.AccessibleName = "Enable logging";
+			this.checkBoxEnableLogging.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
+			this.checkBoxEnableLogging.AutoSize = true;
+			this.checkBoxEnableLogging.Location = new System.Drawing.Point(12, 240);
+			this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
+			this.checkBoxEnableLogging.Size = new System.Drawing.Size(96, 17);
+			this.checkBoxEnableLogging.TabIndex = 11;
+			this.checkBoxEnableLogging.Text = "Enable &logging";
+			this.toolTip.SetToolTip(this.checkBoxEnableLogging, "Enable logging");
+			this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
+			this.checkBoxEnableLogging.Enter += new System.EventHandler(this.SetStatusbar);
+			this.checkBoxEnableLogging.Leave += new System.EventHandler(this.ClearStatusbar);
+			this.checkBoxEnableLogging.MouseEnter += new System.EventHandler(this.SetStatusbar);
+			this.checkBoxEnableLogging.MouseLeave += new System.EventHandler(this.ClearStatusbar);
+			// 
+			// buttonSaveLogging
+			// 
+			this.buttonSaveLogging.AccessibleDescription = "Save logging as csv file";
+			this.buttonSaveLogging.AccessibleName = "Save logging";
+			this.buttonSaveLogging.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+			this.buttonSaveLogging.Enabled = false;
+			this.buttonSaveLogging.Location = new System.Drawing.Point(12, 292);
+			this.buttonSaveLogging.Name = "buttonSaveLogging";
+			this.buttonSaveLogging.Size = new System.Drawing.Size(125, 23);
+			this.buttonSaveLogging.TabIndex = 14;
+			this.buttonSaveLogging.Text = "Save logging as &csv";
+			this.toolTip.SetToolTip(this.buttonSaveLogging, "Save logging as csv file");
+			this.buttonSaveLogging.UseVisualStyleBackColor = true;
+			this.buttonSaveLogging.Click += new System.EventHandler(this.ButtonSaveLogging_Click);
+			this.buttonSaveLogging.Enter += new System.EventHandler(this.SetStatusbar);
+			this.buttonSaveLogging.Leave += new System.EventHandler(this.ClearStatusbar);
+			this.buttonSaveLogging.MouseEnter += new System.EventHandler(this.SetStatusbar);
+			this.buttonSaveLogging.MouseLeave += new System.EventHandler(this.ClearStatusbar);
+			// 
 			// statusStrip
 			// 
 			this.statusStrip.AccessibleDescription = "Show the Statusbar";
@@ -508,7 +548,7 @@
 			this.statusStrip.ShowItemToolTips = true;
 			this.statusStrip.Size = new System.Drawing.Size(541, 22);
 			this.statusStrip.SizingGrip = false;
-			this.statusStrip.TabIndex = 14;
+			this.statusStrip.TabIndex = 16;
 			this.statusStrip.Text = "statusStrip";
 			// 
 			// toolStripStatusLabel
@@ -523,6 +563,11 @@
 			this.toolStripStatusLabel.Text = "Information";
 			this.toolStripStatusLabel.ToolTipText = "Information";
 			// 
+			// saveFileDialog
+			// 
+			this.saveFileDialog.DefaultExt = "csv";
+			this.saveFileDialog.Filter = "csv files|*.csv";
+			// 
 			// MainForm
 			// 
 			this.AccessibleDescription = "Application";
@@ -531,6 +576,8 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(541, 358);
+			this.Controls.Add(this.buttonSaveLogging);
+			this.Controls.Add(this.checkBoxEnableLogging);
 			this.Controls.Add(this.statusStrip);
 			this.Controls.Add(this.labelDrawMode);
 			this.Controls.Add(this.comboBoxDrawMode);
@@ -595,6 +642,9 @@
 		private System.Windows.Forms.ToolTip toolTip;
 		private System.Windows.Forms.StatusStrip statusStrip;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+		private System.Windows.Forms.CheckBox checkBoxEnableLogging;
+		private System.Windows.Forms.Button buttonSaveLogging;
+		private System.Windows.Forms.SaveFileDialog saveFileDialog;
 	}
 }
 

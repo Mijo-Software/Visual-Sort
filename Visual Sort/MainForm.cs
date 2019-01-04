@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
@@ -38,6 +41,8 @@ namespace Visual_Sort
 		private Thread thread;
 
 		private Bitmap bmpSave;
+
+		private Dictionary<string, string> dicLogging = new Dictionary<string, string>();
 
 		#region Assemblyattributaccessoren
 
@@ -134,7 +139,7 @@ namespace Visual_Sort
 		{
 			for (byte i = 0; i < array.Length; i++)
 			{
-				array[array.Length - 1 - i] = i;
+				array[array.Length - i] = i;
 			}
 		}
 
@@ -151,6 +156,14 @@ namespace Visual_Sort
 			{
 				labelComparisonValue.Text = comparison.ToString();
 				labelSwapValue.Text = swap.ToString();
+			}
+		}
+
+		private void DoLogging()
+		{
+			if (checkBoxEnableLogging.Checked)
+			{
+				dicLogging.Add(watch.Elapsed.ToString(), String.Join(",", array.Select(p => p.ToString()).ToArray()));
 			}
 		}
 
@@ -197,7 +210,7 @@ namespace Visual_Sort
 			graphics = Graphics.FromImage(bmpSave);
 			panelDraw.Image = bmpSave;*/
 			if (comboBoxVisualizationScheme.SelectedItem.ToString() != Resources.strLines) graphics.Clear(panelDraw.BackColor);
-			for (byte i = 0; i < array.Length - 1; i++)
+			for (byte i = 0; i < array.Length; i++)
 			{
 				switch (comboBoxVisualizationScheme.SelectedIndex)
 				{
@@ -227,7 +240,7 @@ namespace Visual_Sort
 			graphics = Graphics.FromImage(bmpSave);
 			panelDraw.Image = bmpSave;*/
 			if (comboBoxVisualizationScheme.SelectedItem.ToString() != Resources.strLines) graphics.Clear(panelDraw.BackColor);
-			for (byte i = 0; i < array.Length - 1; i++)
+			for (byte i = 0; i < array.Length; i++)
 			{
 				switch (comboBoxVisualizationScheme.SelectedIndex)
 				{
@@ -298,6 +311,8 @@ namespace Visual_Sort
 			y = temp;
 		}
 
+		#region BubbleSort
+
 		private void BubbleSort1()
 		{
 			comparison = 0;
@@ -317,6 +332,7 @@ namespace Visual_Sort
 							MeasureTime();
 							ShowProcessingInformation();
 						}
+						DoLogging();
 					}
 				}
 				if (radioBoxVisualizationDepthSimple.Checked)
@@ -358,6 +374,7 @@ namespace Visual_Sort
 							MeasureTime();
 							ShowProcessingInformation();
 						}
+						DoLogging();
 					}
 				}
 				n--;
@@ -400,6 +417,7 @@ namespace Visual_Sort
 							MeasureTime();
 							ShowProcessingInformation();
 						}
+						DoLogging();
 					}
 				}
 				n = newn;
@@ -418,6 +436,10 @@ namespace Visual_Sort
 				ShowProcessingInformation();
 			}
 		}
+
+		#endregion
+
+		#region Statusbar
 
 		private void SetStatusbar(object sender, EventArgs e)
 		{
@@ -468,6 +490,10 @@ namespace Visual_Sort
 			toolStripStatusLabel.Text = "";
 		}
 
+		#endregion
+
+		#region Mainform-Events
+
 		private void MainForm_Load(object sender, EventArgs e)
 		{
 			DoubleBuffered = true;
@@ -509,6 +535,10 @@ namespace Visual_Sort
 				thread.Join();
 			}
 		}
+
+		#endregion
+
+		#region Button-Events
 
 		private void ButtonShuffle_Click(object sender, EventArgs e)
 		{
@@ -560,8 +590,11 @@ namespace Visual_Sort
 				watch.Reset();
 				watch.Start();
 				comboBoxSortingAlgorithm.Enabled = false;
+				checkBoxEnableLogging.Enabled = false;
+				buttonSaveLogging.Enabled = false;
 				buttonShuffle.Enabled = false;
 				buttonSort.Enabled = false;
+				dicLogging.Clear();
 				switch (comboBoxSortingAlgorithm.SelectedIndex)
 				{
 					case 0: //Bubble Sort (original version)
@@ -576,13 +609,44 @@ namespace Visual_Sort
 				}
 				if (checkBoxFinalEvent.Checked) ApplyFinalEvent();
 				comboBoxSortingAlgorithm.Enabled = true;
+				checkBoxEnableLogging.Enabled = true;
 				buttonShuffle.Enabled = true;
 				buttonSort.Enabled = true;
+				if (checkBoxEnableLogging.Checked)
+				{
+					buttonSaveLogging.Enabled = true;
+				}
 				watch.Stop();
 			};
 			thread = new Thread(threadStart);
 			thread.Start();
 			MeasureTime();
 		}
+
+		private void ButtonSaveLogging_Click(object sender, EventArgs e)
+		{
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				StreamWriter stream = File.CreateText(saveFileDialog.FileName);
+				for (int i = 0; i < dicLogging.Count; i++)
+				//for (int i = dicLogging.Count - 1; i >= 0; i--)
+				{
+					/*var item = dicLogging.ElementAt(i);
+					var itemKey = dicLogging.ElementAt(i).Key;
+					var itemValue = dicLogging.ElementAt(i).Value;*/
+					stream.WriteLine(i.ToString() + ";" + dicLogging.ElementAt(i).Key + ";" + dicLogging.ElementAt(i).Value + ";");
+				}
+				/*
+				uint i = 0;
+				foreach(var pair in dicLogging)
+				{
+					i++;
+					stream.WriteLine(i.ToString() + ";" + pair.Key + ";" + pair.Value + ";");
+				}
+				*/
+			}
+		}
+
+		#endregion
 	}
 }
