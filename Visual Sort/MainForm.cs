@@ -304,19 +304,95 @@ namespace Visual_Sort
 			}
 		}
 
-		private static void Swap(ref byte x, ref byte y)
+		private void Swap(ref byte x, ref byte y)
 		{
+			swap++;
 			byte temp = x;
 			x = y;
 			y = temp;
 		}
 
+		#region TrippelSort
+
+		private void TrippelSort1(byte l, byte r)
+		{
+			byte k;
+			comparison++;
+			if (array[l] > array[r])
+			{
+				Swap(ref array[l], ref array[r]);
+				if (radioBoxVisualizationDepthDetailed.Checked)
+				{
+					DrawArray((byte)(r + 1));
+					MeasureTime();
+					ShowProcessingInformation();
+				}
+				DoLogging();
+			}
+			if (radioBoxVisualizationDepthSimple.Checked)
+			{
+				DrawArray();
+				MeasureTime();
+				ShowProcessingInformation();
+			}
+			if (l < r - 1)
+			{
+			  k = (byte)((r - l + 1) / 3);
+				TrippelSort1(l, (byte)(r - k));
+				TrippelSort1((byte)(l + k), r);
+				TrippelSort1(l, (byte)(r - k));
+			}
+			if (radioBoxVisualizationDepthNone.Checked)
+			{
+				graphics.Clear(panelDraw.BackColor);
+				//RefreshPanel(panelDraw);
+				MeasureTime();
+				ShowProcessingInformation();
+			}
+		}
+
+		private void StoogeSort(byte i, byte j)
+		{
+			comparison++;
+			if (array[j].CompareTo(array[i]) < 0)
+			{
+				Swap(ref array[i], ref array[j]);
+				if (radioBoxVisualizationDepthDetailed.Checked)
+				{
+					DrawArray((byte)(j + 1));
+					MeasureTime();
+					ShowProcessingInformation();
+				}
+				DoLogging();
+			}
+			if (radioBoxVisualizationDepthSimple.Checked)
+			{
+				DrawArray();
+				MeasureTime();
+				ShowProcessingInformation();
+			}
+			if (j - i > 1)
+			{
+				byte t = (byte)((j - i + 1) / 3);
+				StoogeSort(i, (byte)(j - t));
+				StoogeSort((byte)(i + t), j);
+				StoogeSort(i, (byte)(j - t));
+			}
+			if (radioBoxVisualizationDepthNone.Checked)
+			{
+				graphics.Clear(panelDraw.BackColor);
+				//RefreshPanel(panelDraw);
+				MeasureTime();
+				ShowProcessingInformation();
+			}
+		}
+
+		#endregion
+
 		#region BubbleSort
 
 		private void BubbleSort1()
 		{
-			comparison = 0;
-			swap = 0;
 			for (byte i = 1; i <= array.Length - 1; i++)
 			{
 				for (byte j = 0; j < array.Length - i; j++)
@@ -324,7 +400,6 @@ namespace Visual_Sort
 					comparison++;
 					if (array[j] > array[j + 1])
 					{
-						swap++;
 						Swap(ref array[j], ref array[j + 1]);
 						if (radioBoxVisualizationDepthDetailed.Checked)
 						{
@@ -354,8 +429,6 @@ namespace Visual_Sort
 		private void BubbleSort2()
 		{
 			bool flipped = false;
-			comparison = 0;
-			swap = 0;
 			byte n = (byte)array.Length;
 			do
 			{
@@ -365,7 +438,6 @@ namespace Visual_Sort
 					comparison++;
 					if (array[i] > array[i + 1])
 					{
-						swap++;
 						Swap(ref array[i], ref array[i + 1]);
 						flipped = true;
 						if (radioBoxVisualizationDepthDetailed.Checked)
@@ -396,8 +468,6 @@ namespace Visual_Sort
 
 		private void BubbleSort3()
 		{
-			comparison = 0;
-			swap = 0;
 			byte n = (byte)array.Length;
 			byte newn = 0;
 			do
@@ -408,7 +478,6 @@ namespace Visual_Sort
 					comparison++;
 					if (array[i] > array[i + 1])
 					{
-						swap++;
 						newn = (byte)(i + 1);
 						Swap(ref array[i], ref array[i + 1]);
 						if (radioBoxVisualizationDepthDetailed.Checked)
@@ -507,6 +576,7 @@ namespace Visual_Sort
 			ClearStatusbar(null, null);
 			graphics = panelDraw.CreateGraphics();
 			comboBoxSortingAlgorithm.Items.AddRange(new object[] {
+				Resources.strTrippelSort1,
 				Resources.strBubbleSort1,
 				Resources.strBubbleSort2,
 				Resources.strBubbleSort3});
@@ -595,15 +665,21 @@ namespace Visual_Sort
 				buttonShuffle.Enabled = false;
 				buttonSort.Enabled = false;
 				dicLogging.Clear();
+				comparison = 0;
+				swap = 0;
 				switch (comboBoxSortingAlgorithm.SelectedIndex)
 				{
-					case 0: //Bubble Sort (original version)
+					case 0: //Trippel Sort = Stooge Sort (original version)
+						StoogeSort(0, (byte)(array.Length - 1));
+						//TrippelSort1(0, (byte)(array.Length - 1));
+						break;
+					case 1: //Bubble Sort (original version)
 						BubbleSort1();
 						break;
-					case 1: //Bubble Sort (premature termination)
+					case 2: //Bubble Sort (premature termination)
 						BubbleSort2();
 						break;
-					case 2: //Bubble Sort (comparative reduction)
+					case 3: //Bubble Sort (comparative reduction)
 						BubbleSort3();
 						break;
 				}

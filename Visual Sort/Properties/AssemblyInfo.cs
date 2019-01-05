@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Mijo Software")]
 [assembly: AssemblyProduct("Visual Sort")]
 [assembly: AssemblyCopyright("Copyright © 2018-2019")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Visual Sort; Mijo Software")]
 [assembly: AssemblyCulture("")]
 
 // Durch Festlegen von ComVisible auf FALSE werden die Typen in dieser Assembly
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.7.0.12")]
-[assembly: AssemblyFileVersion("0.7.0.12")]
+[assembly: AssemblyVersion("0.8.0.13")]
+[assembly: AssemblyFileVersion("0.8.0.13")]

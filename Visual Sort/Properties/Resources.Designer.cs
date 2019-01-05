@@ -158,5 +158,14 @@ namespace Visual_Sort.Properties {
                 return ResourceManager.GetString("strSortedReverse", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Trippel Sort = Stooge Sort (original version) ähnelt.
+        /// </summary>
+        internal static string strTrippelSort1 {
+            get {
+                return ResourceManager.GetString("strTrippelSort1", resourceCulture);
+            }
+        }
     }
 }

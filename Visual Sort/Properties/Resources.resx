@@ -150,4 +150,7 @@
   <data name="strSortedReverse" xml:space="preserve">
     <value>sorted reverse</value>
   </data>
+  <data name="strTrippelSort1" xml:space="preserve">
+    <value>Trippel Sort = Stooge Sort (original version)</value>
+  </data>
 </root>
