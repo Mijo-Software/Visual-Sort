@@ -153,4 +153,7 @@
   <data name="strTrippelSort1" xml:space="preserve">
     <value>Trippel Sort = Stooge Sort (original version)</value>
   </data>
+  <data name="strTrippelSort2" xml:space="preserve">
+    <value>Trippel Sort = Stooge Sort (comparative reduction)</value>
+  </data>
 </root>

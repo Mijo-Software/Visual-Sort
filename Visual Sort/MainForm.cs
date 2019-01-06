@@ -15,8 +15,8 @@ namespace Visual_Sort
 	public partial class MainForm : Form
 	{
 		private long
-			comparison = 0,
-			swap = 0;
+			comparisons = 0,
+			swaps = 0;
 
 		private byte[] array = new byte[byte.MaxValue];
 
@@ -149,14 +149,15 @@ namespace Visual_Sort
 		{
 			if (checkBoxDataProcessingSpeed.Checked)
 			{
-				labelComparisonValue.Text = comparison.ToString() + (comparison / watch.Elapsed.TotalSeconds).ToString("' ('#.## 'per sec)'");
-				labelSwapValue.Text = swap.ToString() + (swap / watch.Elapsed.TotalSeconds).ToString("' ('#.## 'per sec)'");
+				labelComparisonValue.Text = comparisons.ToString() + (comparisons / watch.Elapsed.TotalSeconds).ToString("' ('0.00 'per sec)'");
+				labelSwapValue.Text = swaps.ToString() + (swaps / watch.Elapsed.TotalSeconds).ToString("' ('0.00 'per sec)'");
 			}
 			else
 			{
-				labelComparisonValue.Text = comparison.ToString();
-				labelSwapValue.Text = swap.ToString();
+				labelComparisonValue.Text = comparisons.ToString();
+				labelSwapValue.Text = swaps.ToString();
 			}
+			labelCsRelationValue.Text = ((swaps * 1.0) / comparisons).ToString("0.0000");
 		}
 
 		private void DoLogging()
@@ -306,7 +307,7 @@ namespace Visual_Sort
 
 		private void Swap(ref byte x, ref byte y)
 		{
-			swap++;
+			swaps++;
 			byte temp = x;
 			x = y;
 			y = temp;
@@ -317,7 +318,7 @@ namespace Visual_Sort
 		private void TrippelSort1(byte l, byte r)
 		{
 			byte k;
-			comparison++;
+			comparisons++;
 			if (array[l] > array[r])
 			{
 				Swap(ref array[l], ref array[r]);
@@ -337,7 +338,7 @@ namespace Visual_Sort
 			}
 			if (l < r - 1)
 			{
-			  k = (byte)((r - l + 1) / 3);
+				k = (byte)((r - l + 1) / 3);
 				TrippelSort1(l, (byte)(r - k));
 				TrippelSort1((byte)(l + k), r);
 				TrippelSort1(l, (byte)(r - k));
@@ -351,32 +352,33 @@ namespace Visual_Sort
 			}
 		}
 
-		private void StoogeSort(byte i, byte j)
+		private void TrippelSort2(byte l, byte r)
 		{
-			comparison++;
-			if (array[j].CompareTo(array[i]) < 0)
-			{
-				Swap(ref array[i], ref array[j]);
-				if (radioBoxVisualizationDepthDetailed.Checked)
-				{
-					DrawArray((byte)(j + 1));
-					MeasureTime();
-					ShowProcessingInformation();
-				}
-				DoLogging();
-			}
+			byte k;
+			comparisons++;
 			if (radioBoxVisualizationDepthSimple.Checked)
 			{
 				DrawArray();
 				MeasureTime();
 				ShowProcessingInformation();
 			}
-			if (j - i > 1)
+			if (l < r - 1)
 			{
-				byte t = (byte)((j - i + 1) / 3);
-				StoogeSort(i, (byte)(j - t));
-				StoogeSort((byte)(i + t), j);
-				StoogeSort(i, (byte)(j - t));
+				k = (byte)((r - l + 1) / 3);
+				TrippelSort2(l, (byte)(r - k));
+				TrippelSort2((byte)(l + k), r);
+				TrippelSort2(l, (byte)(r - k));
+			}
+			else if (array[l] > array[r])
+			{
+				Swap(ref array[l], ref array[r]);
+				if (radioBoxVisualizationDepthDetailed.Checked)
+				{
+					DrawArray((byte)(r + 1));
+					MeasureTime();
+					ShowProcessingInformation();
+				}
+				DoLogging();
 			}
 			if (radioBoxVisualizationDepthNone.Checked)
 			{
@@ -397,7 +399,7 @@ namespace Visual_Sort
 			{
 				for (byte j = 0; j < array.Length - i; j++)
 				{
-					comparison++;
+					comparisons++;
 					if (array[j] > array[j + 1])
 					{
 						Swap(ref array[j], ref array[j + 1]);
@@ -435,7 +437,7 @@ namespace Visual_Sort
 				flipped = false;
 				for (byte i = 0; i < n - 1; i++)
 				{
-					comparison++;
+					comparisons++;
 					if (array[i] > array[i + 1])
 					{
 						Swap(ref array[i], ref array[i + 1]);
@@ -475,7 +477,7 @@ namespace Visual_Sort
 				newn = 1;
 				for (byte i = 0; i < n - 1; i++)
 				{
-					comparison++;
+					comparisons++;
 					if (array[i] > array[i + 1])
 					{
 						newn = (byte)(i + 1);
@@ -577,6 +579,7 @@ namespace Visual_Sort
 			graphics = panelDraw.CreateGraphics();
 			comboBoxSortingAlgorithm.Items.AddRange(new object[] {
 				Resources.strTrippelSort1,
+				Resources.strTrippelSort2,
 				Resources.strBubbleSort1,
 				Resources.strBubbleSort2,
 				Resources.strBubbleSort3});
@@ -618,7 +621,8 @@ namespace Visual_Sort
 			}
 			labelComparisonValue.Text =
 				labelSwapValue.Text =
-				labelRuntimeValue.Text = Resources.strNumberZero;
+				labelRuntimeValue.Text =
+				labelCsRelationValue.Text = Resources.strNumberZero;
 			switch (comboBoxShuffleMode.SelectedIndex)
 			{
 				case 0: //random
@@ -645,7 +649,8 @@ namespace Visual_Sort
 			{
 				labelComparisonValue.Text =
 					labelSwapValue.Text =
-					labelRuntimeValue.Text = Resources.strNumberZero;
+					labelRuntimeValue.Text =
+					labelCsRelationValue.Text = Resources.strNumberZero;
 				isShuffled = true;
 				Shuffle(array);
 				DrawArray();
@@ -665,21 +670,23 @@ namespace Visual_Sort
 				buttonShuffle.Enabled = false;
 				buttonSort.Enabled = false;
 				dicLogging.Clear();
-				comparison = 0;
-				swap = 0;
+				comparisons = 0;
+				swaps = 0;
 				switch (comboBoxSortingAlgorithm.SelectedIndex)
 				{
 					case 0: //Trippel Sort = Stooge Sort (original version)
-						StoogeSort(0, (byte)(array.Length - 1));
-						//TrippelSort1(0, (byte)(array.Length - 1));
+						TrippelSort1(0, (byte)(array.Length - 1));
 						break;
-					case 1: //Bubble Sort (original version)
+					case 1: //Trippel Sort = Stooge Sort (comparative reduction)
+						TrippelSort2(0, (byte)(array.Length - 1));
+						break;
+					case 2: //Bubble Sort (original version)
 						BubbleSort1();
 						break;
-					case 2: //Bubble Sort (premature termination)
+					case 3: //Bubble Sort (premature termination)
 						BubbleSort2();
 						break;
-					case 3: //Bubble Sort (comparative reduction)
+					case 4: //Bubble Sort (comparative reduction)
 						BubbleSort3();
 						break;
 				}

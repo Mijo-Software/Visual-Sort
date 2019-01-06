@@ -167,5 +167,14 @@ namespace Visual_Sort.Properties {
                 return ResourceManager.GetString("strTrippelSort1", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Trippel Sort = Stooge Sort (comparative reduction) ähnelt.
+        /// </summary>
+        internal static string strTrippelSort2 {
+            get {
+                return ResourceManager.GetString("strTrippelSort2", resourceCulture);
+            }
+        }
     }
 }

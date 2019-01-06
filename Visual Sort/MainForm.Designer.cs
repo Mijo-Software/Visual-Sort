@@ -35,8 +35,8 @@
 			this.comboBoxSortingAlgorithm = new System.Windows.Forms.ComboBox();
 			this.panelDraw = new System.Windows.Forms.PictureBox();
 			this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-			this.labelRuntimeValue = new System.Windows.Forms.Label();
-			this.labelRuntime = new System.Windows.Forms.Label();
+			this.labelCsRelationValue = new System.Windows.Forms.Label();
+			this.labelCsRelation = new System.Windows.Forms.Label();
 			this.labelSwapValue = new System.Windows.Forms.Label();
 			this.labelSwap = new System.Windows.Forms.Label();
 			this.labelComparisonValue = new System.Windows.Forms.Label();
@@ -60,6 +60,8 @@
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+			this.labelRuntimeValue = new System.Windows.Forms.Label();
+			this.labelRuntime = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.panelDraw)).BeginInit();
 			this.tableLayoutPanel.SuspendLayout();
 			this.groupBoxVisualizationDepth.SuspendLayout();
@@ -142,57 +144,60 @@
 			this.tableLayoutPanel.ColumnCount = 2;
 			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
 			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-			this.tableLayoutPanel.Controls.Add(this.labelRuntimeValue, 1, 2);
-			this.tableLayoutPanel.Controls.Add(this.labelRuntime, 0, 2);
+			this.tableLayoutPanel.Controls.Add(this.labelRuntime, 0, 3);
+			this.tableLayoutPanel.Controls.Add(this.labelRuntimeValue, 0, 3);
+			this.tableLayoutPanel.Controls.Add(this.labelCsRelationValue, 1, 2);
+			this.tableLayoutPanel.Controls.Add(this.labelCsRelation, 0, 2);
 			this.tableLayoutPanel.Controls.Add(this.labelSwapValue, 1, 1);
 			this.tableLayoutPanel.Controls.Add(this.labelSwap, 0, 1);
 			this.tableLayoutPanel.Controls.Add(this.labelComparisonValue, 1, 0);
 			this.tableLayoutPanel.Controls.Add(this.labelComparison, 0, 0);
 			this.tableLayoutPanel.Location = new System.Drawing.Point(275, 275);
 			this.tableLayoutPanel.Name = "tableLayoutPanel";
-			this.tableLayoutPanel.RowCount = 3;
-			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+			this.tableLayoutPanel.RowCount = 4;
+			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+			this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
 			this.tableLayoutPanel.Size = new System.Drawing.Size(255, 57);
 			this.tableLayoutPanel.TabIndex = 15;
 			// 
-			// labelRuntimeValue
+			// labelCsRelationValue
 			// 
-			this.labelRuntimeValue.AccessibleDescription = "Show the value of the time";
-			this.labelRuntimeValue.AccessibleName = "Time";
-			this.labelRuntimeValue.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
-			this.labelRuntimeValue.AutoSize = true;
-			this.labelRuntimeValue.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelRuntimeValue.Location = new System.Drawing.Point(105, 38);
-			this.labelRuntimeValue.Name = "labelRuntimeValue";
-			this.labelRuntimeValue.Size = new System.Drawing.Size(147, 19);
-			this.labelRuntimeValue.TabIndex = 5;
-			this.labelRuntimeValue.Text = "0";
-			this.labelRuntimeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.toolTip.SetToolTip(this.labelRuntimeValue, "Time");
-			this.labelRuntimeValue.Enter += new System.EventHandler(this.SetStatusbar);
-			this.labelRuntimeValue.Leave += new System.EventHandler(this.ClearStatusbar);
-			this.labelRuntimeValue.MouseEnter += new System.EventHandler(this.SetStatusbar);
-			this.labelRuntimeValue.MouseLeave += new System.EventHandler(this.ClearStatusbar);
+			this.labelCsRelationValue.AccessibleDescription = "Show the value of the c/s relation";
+			this.labelCsRelationValue.AccessibleName = "c/s relation";
+			this.labelCsRelationValue.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
+			this.labelCsRelationValue.AutoSize = true;
+			this.labelCsRelationValue.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelCsRelationValue.Location = new System.Drawing.Point(105, 28);
+			this.labelCsRelationValue.Name = "labelCsRelationValue";
+			this.labelCsRelationValue.Size = new System.Drawing.Size(147, 14);
+			this.labelCsRelationValue.TabIndex = 5;
+			this.labelCsRelationValue.Text = "0";
+			this.labelCsRelationValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.toolTip.SetToolTip(this.labelCsRelationValue, "c/s relation");
+			this.labelCsRelationValue.Enter += new System.EventHandler(this.SetStatusbar);
+			this.labelCsRelationValue.Leave += new System.EventHandler(this.ClearStatusbar);
+			this.labelCsRelationValue.MouseEnter += new System.EventHandler(this.SetStatusbar);
+			this.labelCsRelationValue.MouseLeave += new System.EventHandler(this.ClearStatusbar);
 			// 
-			// labelRuntime
+			// labelCsRelation
 			// 
-			this.labelRuntime.AccessibleDescription = "Show the time";
-			this.labelRuntime.AccessibleName = "Time";
-			this.labelRuntime.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
-			this.labelRuntime.AutoSize = true;
-			this.labelRuntime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelRuntime.Location = new System.Drawing.Point(3, 38);
-			this.labelRuntime.Name = "labelRuntime";
-			this.labelRuntime.Size = new System.Drawing.Size(96, 19);
-			this.labelRuntime.TabIndex = 4;
-			this.labelRuntime.Text = "Time in hms:";
-			this.labelRuntime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.labelRuntime.Enter += new System.EventHandler(this.SetStatusbar);
-			this.labelRuntime.Leave += new System.EventHandler(this.ClearStatusbar);
-			this.labelRuntime.MouseEnter += new System.EventHandler(this.SetStatusbar);
-			this.labelRuntime.MouseLeave += new System.EventHandler(this.ClearStatusbar);
+			this.labelCsRelation.AccessibleDescription = "Show the c/s relation";
+			this.labelCsRelation.AccessibleName = "c/s relation";
+			this.labelCsRelation.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
+			this.labelCsRelation.AutoSize = true;
+			this.labelCsRelation.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelCsRelation.Location = new System.Drawing.Point(3, 28);
+			this.labelCsRelation.Name = "labelCsRelation";
+			this.labelCsRelation.Size = new System.Drawing.Size(96, 14);
+			this.labelCsRelation.TabIndex = 4;
+			this.labelCsRelation.Text = "c/s relation:";
+			this.labelCsRelation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.labelCsRelation.Enter += new System.EventHandler(this.SetStatusbar);
+			this.labelCsRelation.Leave += new System.EventHandler(this.ClearStatusbar);
+			this.labelCsRelation.MouseEnter += new System.EventHandler(this.SetStatusbar);
+			this.labelCsRelation.MouseLeave += new System.EventHandler(this.ClearStatusbar);
 			// 
 			// labelSwapValue
 			// 
@@ -201,9 +206,9 @@
 			this.labelSwapValue.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelSwapValue.AutoSize = true;
 			this.labelSwapValue.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelSwapValue.Location = new System.Drawing.Point(105, 19);
+			this.labelSwapValue.Location = new System.Drawing.Point(105, 14);
 			this.labelSwapValue.Name = "labelSwapValue";
-			this.labelSwapValue.Size = new System.Drawing.Size(147, 19);
+			this.labelSwapValue.Size = new System.Drawing.Size(147, 14);
 			this.labelSwapValue.TabIndex = 3;
 			this.labelSwapValue.Text = "0";
 			this.labelSwapValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -220,11 +225,11 @@
 			this.labelSwap.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelSwap.AutoSize = true;
 			this.labelSwap.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelSwap.Location = new System.Drawing.Point(3, 19);
+			this.labelSwap.Location = new System.Drawing.Point(3, 14);
 			this.labelSwap.Name = "labelSwap";
-			this.labelSwap.Size = new System.Drawing.Size(96, 19);
+			this.labelSwap.Size = new System.Drawing.Size(96, 14);
 			this.labelSwap.TabIndex = 2;
-			this.labelSwap.Text = "Swaps:";
+			this.labelSwap.Text = "Swaps (s):";
 			this.labelSwap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.labelSwap.Enter += new System.EventHandler(this.SetStatusbar);
 			this.labelSwap.Leave += new System.EventHandler(this.ClearStatusbar);
@@ -240,7 +245,7 @@
 			this.labelComparisonValue.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelComparisonValue.Location = new System.Drawing.Point(105, 0);
 			this.labelComparisonValue.Name = "labelComparisonValue";
-			this.labelComparisonValue.Size = new System.Drawing.Size(147, 19);
+			this.labelComparisonValue.Size = new System.Drawing.Size(147, 14);
 			this.labelComparisonValue.TabIndex = 1;
 			this.labelComparisonValue.Text = "0";
 			this.labelComparisonValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -259,9 +264,9 @@
 			this.labelComparison.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelComparison.Location = new System.Drawing.Point(3, 0);
 			this.labelComparison.Name = "labelComparison";
-			this.labelComparison.Size = new System.Drawing.Size(96, 19);
+			this.labelComparison.Size = new System.Drawing.Size(96, 14);
 			this.labelComparison.TabIndex = 0;
-			this.labelComparison.Text = "Comparisons:";
+			this.labelComparison.Text = "Comparisons (c):";
 			this.labelComparison.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.labelComparison.Enter += new System.EventHandler(this.SetStatusbar);
 			this.labelComparison.Leave += new System.EventHandler(this.ClearStatusbar);
@@ -568,6 +573,35 @@
 			this.saveFileDialog.DefaultExt = "csv";
 			this.saveFileDialog.Filter = "csv files|*.csv";
 			// 
+			// labelRuntimeValue
+			// 
+			this.labelRuntimeValue.AccessibleDescription = "Show the value of the time";
+			this.labelRuntimeValue.AccessibleName = "Time";
+			this.labelRuntimeValue.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
+			this.labelRuntimeValue.AutoSize = true;
+			this.labelRuntimeValue.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelRuntimeValue.Location = new System.Drawing.Point(105, 42);
+			this.labelRuntimeValue.Name = "labelRuntimeValue";
+			this.labelRuntimeValue.Size = new System.Drawing.Size(147, 15);
+			this.labelRuntimeValue.TabIndex = 7;
+			this.labelRuntimeValue.Text = "0";
+			this.labelRuntimeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.toolTip.SetToolTip(this.labelRuntimeValue, "Time");
+			// 
+			// labelRuntime
+			// 
+			this.labelRuntime.AccessibleDescription = "Show the time";
+			this.labelRuntime.AccessibleName = "Time";
+			this.labelRuntime.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
+			this.labelRuntime.AutoSize = true;
+			this.labelRuntime.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelRuntime.Location = new System.Drawing.Point(3, 42);
+			this.labelRuntime.Name = "labelRuntime";
+			this.labelRuntime.Size = new System.Drawing.Size(96, 15);
+			this.labelRuntime.TabIndex = 6;
+			this.labelRuntime.Text = "Time in hms:";
+			this.labelRuntime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// MainForm
 			// 
 			this.AccessibleDescription = "Application";
@@ -620,8 +654,8 @@
 		private System.Windows.Forms.ComboBox comboBoxSortingAlgorithm;
 		private System.Windows.Forms.PictureBox panelDraw;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-		private System.Windows.Forms.Label labelRuntimeValue;
-		private System.Windows.Forms.Label labelRuntime;
+		private System.Windows.Forms.Label labelCsRelationValue;
+		private System.Windows.Forms.Label labelCsRelation;
 		private System.Windows.Forms.Label labelSwapValue;
 		private System.Windows.Forms.Label labelSwap;
 		private System.Windows.Forms.Label labelComparisonValue;
@@ -645,6 +679,8 @@
 		private System.Windows.Forms.CheckBox checkBoxEnableLogging;
 		private System.Windows.Forms.Button buttonSaveLogging;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog;
+		private System.Windows.Forms.Label labelRuntime;
+		private System.Windows.Forms.Label labelRuntimeValue;
 	}
 }
 
