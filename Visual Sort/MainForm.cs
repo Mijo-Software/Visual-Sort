@@ -24,6 +24,8 @@ namespace Visual_Sort
 
 		private Graphics graphics;
 
+		private Random rand = new Random();
+
 		private Pen
 			penDraw = new Pen(SystemColors.ControlText,1 ),
 			penMarker = new Pen(Color.OrangeRed, 1),
@@ -292,17 +294,26 @@ namespace Visual_Sort
 			//RefreshPanel(panelDraw);
 		}
 
-		private void Shuffle<T>(T[] array)
+		private void Shuffle<T>(T[] array) where T : IComparable
 		{
-			Random rng = new Random();
 			int n = array.Length;
 			while (n > 1)
 			{
-				int k = rng.Next(n--);
+				int k = rand.Next(n--);
 				T temp = array[n];
 				array[n] = array[k];
 				array[k] = temp;
 			}
+		}
+
+		private bool IsSorted<T>(T[] array) where T : IComparable
+		{
+			if (array.Length <= 1) return true;
+			for (int i = 1; i < array.Length; i++)
+			{
+				if (array[i].CompareTo(array[i - 1]) < 0) return false;
+			}
+			return true;
 		}
 
 		private void Swap(ref byte x, ref byte y)
@@ -312,6 +323,99 @@ namespace Visual_Sort
 			x = y;
 			y = temp;
 		}
+
+		#region BogoSort
+
+		private void BogoSort()
+		{
+			while (!IsSorted(array))
+			{
+				Shuffle(array);
+				if (!radioBoxVisualizationDepthNone.Checked)
+				{
+					DrawArray();
+				}
+				MeasureTime();
+				ShowProcessingInformation();
+				DoLogging();
+			}
+		}
+
+		#endregion
+
+		#region BozoSort
+
+		private void BozoSort()
+		{
+			byte i, j;
+			while (!IsSorted(array))
+			{
+				i = (byte)rand.Next(array.Length);
+				j = (byte)rand.Next(array.Length);
+				Swap(ref array[i], ref array[j]);
+				if (radioBoxVisualizationDepthDetailed.Checked)
+				{
+					DrawArray((byte)(j));
+					MeasureTime();
+					ShowProcessingInformation();
+				}
+				DoLogging();
+				if (radioBoxVisualizationDepthSimple.Checked)
+				{
+					DrawArray();
+					MeasureTime();
+					ShowProcessingInformation();
+				}
+				if (radioBoxVisualizationDepthNone.Checked)
+				{
+					graphics.Clear(panelDraw.BackColor);
+					//RefreshPanel(panelDraw);
+					MeasureTime();
+					ShowProcessingInformation();
+				}
+			}
+		}
+
+		#endregion
+
+		#region RandomSort
+
+		private void RandomSort()
+		{
+			byte i, j;
+			while (!IsSorted(array))
+			{
+				i = (byte)rand.Next(array.Length);
+				j = (byte)rand.Next(array.Length);
+				comparisons++;
+				if (array[i] < array[j])
+				{
+					Swap(ref array[i], ref array[j]);
+					if (radioBoxVisualizationDepthDetailed.Checked)
+					{
+						DrawArray((byte)(j));
+						MeasureTime();
+						ShowProcessingInformation();
+					}
+					DoLogging();
+				}
+				if (radioBoxVisualizationDepthSimple.Checked)
+				{
+					DrawArray();
+					MeasureTime();
+					ShowProcessingInformation();
+				}
+				if (radioBoxVisualizationDepthNone.Checked)
+				{
+					graphics.Clear(panelDraw.BackColor);
+					//RefreshPanel(panelDraw);
+					MeasureTime();
+					ShowProcessingInformation();
+				}
+			}
+		}
+
+		#endregion
 
 		#region TrippelSort
 
@@ -578,12 +682,15 @@ namespace Visual_Sort
 			ClearStatusbar(null, null);
 			graphics = panelDraw.CreateGraphics();
 			comboBoxSortingAlgorithm.Items.AddRange(new object[] {
+				Resources.strBogoSort,
+				Resources.strBozoSort,
+				Resources.strRandomSort,
 				Resources.strTrippelSort1,
 				Resources.strTrippelSort2,
 				Resources.strBubbleSort1,
 				Resources.strBubbleSort2,
 				Resources.strBubbleSort3});
-			comboBoxSortingAlgorithm.SelectedIndex = 0;
+			comboBoxSortingAlgorithm.SelectedIndex = 5;
 			comboBoxVisualizationScheme.Items.AddRange(new object[] {
 				Resources.strLines,
 				Resources.strDotes});
@@ -644,7 +751,6 @@ namespace Visual_Sort
 
 		private void ButtonSort_Click(object sender, EventArgs e)
 		{
-			MeasureTime();
 			if (!isShuffled)
 			{
 				labelComparisonValue.Text =
@@ -655,6 +761,7 @@ namespace Visual_Sort
 				Shuffle(array);
 				DrawArray();
 			}
+			MeasureTime();
 			if (thread != null)
 			{
 				thread.Abort();
@@ -674,19 +781,28 @@ namespace Visual_Sort
 				swaps = 0;
 				switch (comboBoxSortingAlgorithm.SelectedIndex)
 				{
-					case 0: //Trippel Sort = Stooge Sort (original version)
+					case 0: //BogoSort = Monkey Sort, Stupid Sort
+						BogoSort();
+						break;
+					case 1: //Bozo Sort
+						BozoSort();
+						break;
+					case 2: //Random Sort
+						RandomSort();
+						break;
+					case 3: //Trippel Sort = Stooge Sort (original version)
 						TrippelSort1(0, (byte)(array.Length - 1));
 						break;
-					case 1: //Trippel Sort = Stooge Sort (comparative reduction)
+					case 4: //Trippel Sort = Stooge Sort (comparative reduction)
 						TrippelSort2(0, (byte)(array.Length - 1));
 						break;
-					case 2: //Bubble Sort (original version)
+					case 5: //Bubble Sort (original version)
 						BubbleSort1();
 						break;
-					case 3: //Bubble Sort (premature termination)
+					case 6: //Bubble Sort (premature termination)
 						BubbleSort2();
 						break;
-					case 4: //Bubble Sort (comparative reduction)
+					case 7: //Bubble Sort (comparative reduction)
 						BubbleSort3();
 						break;
 				}

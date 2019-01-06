@@ -61,6 +61,24 @@ namespace Visual_Sort.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bogo Sort = Monkey Sort, Stupid Sort ähnelt.
+        /// </summary>
+        internal static string strBogoSort {
+            get {
+                return ResourceManager.GetString("strBogoSort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bozo Sort ähnelt.
+        /// </summary>
+        internal static string strBozoSort {
+            get {
+                return ResourceManager.GetString("strBozoSort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Bubble Sort (original version) ähnelt.
         /// </summary>
         internal static string strBubbleSort1 {
@@ -138,6 +156,15 @@ namespace Visual_Sort.Properties {
         internal static string strRandom {
             get {
                 return ResourceManager.GetString("strRandom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Random Sort ähnelt.
+        /// </summary>
+        internal static string strRandomSort {
+            get {
+                return ResourceManager.GetString("strRandomSort", resourceCulture);
             }
         }
         
