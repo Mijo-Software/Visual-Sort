@@ -35,6 +35,8 @@
 			this.comboBoxSortingAlgorithm = new System.Windows.Forms.ComboBox();
 			this.panelDraw = new System.Windows.Forms.PictureBox();
 			this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+			this.labelRuntime = new System.Windows.Forms.Label();
+			this.labelRuntimeValue = new System.Windows.Forms.Label();
 			this.labelCsRelationValue = new System.Windows.Forms.Label();
 			this.labelCsRelation = new System.Windows.Forms.Label();
 			this.labelSwapValue = new System.Windows.Forms.Label();
@@ -60,8 +62,6 @@
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-			this.labelRuntimeValue = new System.Windows.Forms.Label();
-			this.labelRuntime = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.panelDraw)).BeginInit();
 			this.tableLayoutPanel.SuspendLayout();
 			this.groupBoxVisualizationDepth.SuspendLayout();
@@ -141,6 +141,7 @@
 			this.tableLayoutPanel.AccessibleDescription = "Group the statistics";
 			this.tableLayoutPanel.AccessibleName = "Statistic group";
 			this.tableLayoutPanel.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+			this.tableLayoutPanel.BackColor = System.Drawing.Color.Transparent;
 			this.tableLayoutPanel.ColumnCount = 2;
 			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
 			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
@@ -162,12 +163,44 @@
 			this.tableLayoutPanel.Size = new System.Drawing.Size(255, 57);
 			this.tableLayoutPanel.TabIndex = 15;
 			// 
+			// labelRuntime
+			// 
+			this.labelRuntime.AccessibleDescription = "Show the time";
+			this.labelRuntime.AccessibleName = "Time";
+			this.labelRuntime.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
+			this.labelRuntime.AutoSize = true;
+			this.labelRuntime.BackColor = System.Drawing.Color.Transparent;
+			this.labelRuntime.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelRuntime.Location = new System.Drawing.Point(3, 42);
+			this.labelRuntime.Name = "labelRuntime";
+			this.labelRuntime.Size = new System.Drawing.Size(96, 15);
+			this.labelRuntime.TabIndex = 6;
+			this.labelRuntime.Text = "Time in hms:";
+			this.labelRuntime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// labelRuntimeValue
+			// 
+			this.labelRuntimeValue.AccessibleDescription = "Show the value of the time";
+			this.labelRuntimeValue.AccessibleName = "Time";
+			this.labelRuntimeValue.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
+			this.labelRuntimeValue.AutoSize = true;
+			this.labelRuntimeValue.BackColor = System.Drawing.Color.Transparent;
+			this.labelRuntimeValue.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.labelRuntimeValue.Location = new System.Drawing.Point(105, 42);
+			this.labelRuntimeValue.Name = "labelRuntimeValue";
+			this.labelRuntimeValue.Size = new System.Drawing.Size(147, 15);
+			this.labelRuntimeValue.TabIndex = 7;
+			this.labelRuntimeValue.Text = "0";
+			this.labelRuntimeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.toolTip.SetToolTip(this.labelRuntimeValue, "Time");
+			// 
 			// labelCsRelationValue
 			// 
 			this.labelCsRelationValue.AccessibleDescription = "Show the value of the c/s relation";
 			this.labelCsRelationValue.AccessibleName = "c/s relation";
 			this.labelCsRelationValue.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelCsRelationValue.AutoSize = true;
+			this.labelCsRelationValue.BackColor = System.Drawing.Color.Transparent;
 			this.labelCsRelationValue.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelCsRelationValue.Location = new System.Drawing.Point(105, 28);
 			this.labelCsRelationValue.Name = "labelCsRelationValue";
@@ -187,6 +220,7 @@
 			this.labelCsRelation.AccessibleName = "c/s relation";
 			this.labelCsRelation.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelCsRelation.AutoSize = true;
+			this.labelCsRelation.BackColor = System.Drawing.Color.Transparent;
 			this.labelCsRelation.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelCsRelation.Location = new System.Drawing.Point(3, 28);
 			this.labelCsRelation.Name = "labelCsRelation";
@@ -205,6 +239,7 @@
 			this.labelSwapValue.AccessibleName = "Swaps";
 			this.labelSwapValue.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelSwapValue.AutoSize = true;
+			this.labelSwapValue.BackColor = System.Drawing.Color.Transparent;
 			this.labelSwapValue.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelSwapValue.Location = new System.Drawing.Point(105, 14);
 			this.labelSwapValue.Name = "labelSwapValue";
@@ -224,6 +259,7 @@
 			this.labelSwap.AccessibleName = "Swaps";
 			this.labelSwap.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelSwap.AutoSize = true;
+			this.labelSwap.BackColor = System.Drawing.Color.Transparent;
 			this.labelSwap.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelSwap.Location = new System.Drawing.Point(3, 14);
 			this.labelSwap.Name = "labelSwap";
@@ -242,6 +278,7 @@
 			this.labelComparisonValue.AccessibleName = "Comparisons";
 			this.labelComparisonValue.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelComparisonValue.AutoSize = true;
+			this.labelComparisonValue.BackColor = System.Drawing.Color.Transparent;
 			this.labelComparisonValue.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelComparisonValue.Location = new System.Drawing.Point(105, 0);
 			this.labelComparisonValue.Name = "labelComparisonValue";
@@ -261,6 +298,7 @@
 			this.labelComparison.AccessibleName = "Comparisons";
 			this.labelComparison.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelComparison.AutoSize = true;
+			this.labelComparison.BackColor = System.Drawing.Color.Transparent;
 			this.labelComparison.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelComparison.Location = new System.Drawing.Point(3, 0);
 			this.labelComparison.Name = "labelComparison";
@@ -295,6 +333,7 @@
 			this.groupBoxVisualizationDepth.AccessibleDescription = "Group the visualization depth";
 			this.groupBoxVisualizationDepth.AccessibleName = "Visualization depth";
 			this.groupBoxVisualizationDepth.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
+			this.groupBoxVisualizationDepth.BackColor = System.Drawing.Color.Transparent;
 			this.groupBoxVisualizationDepth.Controls.Add(this.radioBoxVisualizationDepthNone);
 			this.groupBoxVisualizationDepth.Controls.Add(this.radioBoxVisualizationDepthDetailed);
 			this.groupBoxVisualizationDepth.Controls.Add(this.radioBoxVisualizationDepthSimple);
@@ -367,6 +406,7 @@
 			this.checkBoxDataProcessingSpeed.AccessibleName = "Show data processing speed";
 			this.checkBoxDataProcessingSpeed.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
 			this.checkBoxDataProcessingSpeed.AutoSize = true;
+			this.checkBoxDataProcessingSpeed.BackColor = System.Drawing.Color.Transparent;
 			this.checkBoxDataProcessingSpeed.Checked = true;
 			this.checkBoxDataProcessingSpeed.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.checkBoxDataProcessingSpeed.Location = new System.Drawing.Point(12, 194);
@@ -375,7 +415,7 @@
 			this.checkBoxDataProcessingSpeed.TabIndex = 9;
 			this.checkBoxDataProcessingSpeed.Text = "Show data &processing speed";
 			this.toolTip.SetToolTip(this.checkBoxDataProcessingSpeed, "Show data processing speed");
-			this.checkBoxDataProcessingSpeed.UseVisualStyleBackColor = true;
+			this.checkBoxDataProcessingSpeed.UseVisualStyleBackColor = false;
 			this.checkBoxDataProcessingSpeed.Enter += new System.EventHandler(this.SetStatusbar);
 			this.checkBoxDataProcessingSpeed.Leave += new System.EventHandler(this.ClearStatusbar);
 			this.checkBoxDataProcessingSpeed.MouseEnter += new System.EventHandler(this.SetStatusbar);
@@ -387,6 +427,7 @@
 			this.checkBoxFinalEvent.AccessibleName = "Apply final event";
 			this.checkBoxFinalEvent.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
 			this.checkBoxFinalEvent.AutoSize = true;
+			this.checkBoxFinalEvent.BackColor = System.Drawing.Color.Transparent;
 			this.checkBoxFinalEvent.Checked = true;
 			this.checkBoxFinalEvent.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.checkBoxFinalEvent.Location = new System.Drawing.Point(12, 217);
@@ -395,7 +436,7 @@
 			this.checkBoxFinalEvent.TabIndex = 10;
 			this.checkBoxFinalEvent.Text = "Appl&y final event";
 			this.toolTip.SetToolTip(this.checkBoxFinalEvent, "Apply final event");
-			this.checkBoxFinalEvent.UseVisualStyleBackColor = true;
+			this.checkBoxFinalEvent.UseVisualStyleBackColor = false;
 			this.checkBoxFinalEvent.Enter += new System.EventHandler(this.SetStatusbar);
 			this.checkBoxFinalEvent.Leave += new System.EventHandler(this.ClearStatusbar);
 			this.checkBoxFinalEvent.MouseEnter += new System.EventHandler(this.SetStatusbar);
@@ -407,6 +448,7 @@
 			this.labelSortingAlgorithm.AccessibleName = "Sorting algorithm";
 			this.labelSortingAlgorithm.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelSortingAlgorithm.AutoSize = true;
+			this.labelSortingAlgorithm.BackColor = System.Drawing.Color.Transparent;
 			this.labelSortingAlgorithm.Location = new System.Drawing.Point(9, 15);
 			this.labelSortingAlgorithm.Name = "labelSortingAlgorithm";
 			this.labelSortingAlgorithm.Size = new System.Drawing.Size(88, 13);
@@ -423,6 +465,7 @@
 			this.labelVisualizationScheme.AccessibleName = "Visualization scheme";
 			this.labelVisualizationScheme.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelVisualizationScheme.AutoSize = true;
+			this.labelVisualizationScheme.BackColor = System.Drawing.Color.Transparent;
 			this.labelVisualizationScheme.Location = new System.Drawing.Point(9, 61);
 			this.labelVisualizationScheme.Name = "labelVisualizationScheme";
 			this.labelVisualizationScheme.Size = new System.Drawing.Size(108, 13);
@@ -439,6 +482,7 @@
 			this.labelShuffleMode.AccessibleName = "Shuffle mode";
 			this.labelShuffleMode.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelShuffleMode.AutoSize = true;
+			this.labelShuffleMode.BackColor = System.Drawing.Color.Transparent;
 			this.labelShuffleMode.Location = new System.Drawing.Point(9, 88);
 			this.labelShuffleMode.Name = "labelShuffleMode";
 			this.labelShuffleMode.Size = new System.Drawing.Size(72, 13);
@@ -489,6 +533,7 @@
 			this.labelDrawMode.AccessibleName = "Draw mode";
 			this.labelDrawMode.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
 			this.labelDrawMode.AutoSize = true;
+			this.labelDrawMode.BackColor = System.Drawing.Color.Transparent;
 			this.labelDrawMode.Location = new System.Drawing.Point(9, 115);
 			this.labelDrawMode.Name = "labelDrawMode";
 			this.labelDrawMode.Size = new System.Drawing.Size(64, 13);
@@ -509,13 +554,14 @@
 			this.checkBoxEnableLogging.AccessibleName = "Enable logging";
 			this.checkBoxEnableLogging.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
 			this.checkBoxEnableLogging.AutoSize = true;
+			this.checkBoxEnableLogging.BackColor = System.Drawing.Color.Transparent;
 			this.checkBoxEnableLogging.Location = new System.Drawing.Point(12, 240);
 			this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
 			this.checkBoxEnableLogging.Size = new System.Drawing.Size(96, 17);
 			this.checkBoxEnableLogging.TabIndex = 11;
 			this.checkBoxEnableLogging.Text = "Enable &logging";
 			this.toolTip.SetToolTip(this.checkBoxEnableLogging, "Enable logging");
-			this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
+			this.checkBoxEnableLogging.UseVisualStyleBackColor = false;
 			this.checkBoxEnableLogging.Enter += new System.EventHandler(this.SetStatusbar);
 			this.checkBoxEnableLogging.Leave += new System.EventHandler(this.ClearStatusbar);
 			this.checkBoxEnableLogging.MouseEnter += new System.EventHandler(this.SetStatusbar);
@@ -572,35 +618,6 @@
 			// 
 			this.saveFileDialog.DefaultExt = "csv";
 			this.saveFileDialog.Filter = "csv files|*.csv";
-			// 
-			// labelRuntimeValue
-			// 
-			this.labelRuntimeValue.AccessibleDescription = "Show the value of the time";
-			this.labelRuntimeValue.AccessibleName = "Time";
-			this.labelRuntimeValue.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
-			this.labelRuntimeValue.AutoSize = true;
-			this.labelRuntimeValue.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelRuntimeValue.Location = new System.Drawing.Point(105, 42);
-			this.labelRuntimeValue.Name = "labelRuntimeValue";
-			this.labelRuntimeValue.Size = new System.Drawing.Size(147, 15);
-			this.labelRuntimeValue.TabIndex = 7;
-			this.labelRuntimeValue.Text = "0";
-			this.labelRuntimeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.toolTip.SetToolTip(this.labelRuntimeValue, "Time");
-			// 
-			// labelRuntime
-			// 
-			this.labelRuntime.AccessibleDescription = "Show the time";
-			this.labelRuntime.AccessibleName = "Time";
-			this.labelRuntime.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
-			this.labelRuntime.AutoSize = true;
-			this.labelRuntime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelRuntime.Location = new System.Drawing.Point(3, 42);
-			this.labelRuntime.Name = "labelRuntime";
-			this.labelRuntime.Size = new System.Drawing.Size(96, 15);
-			this.labelRuntime.TabIndex = 6;
-			this.labelRuntime.Text = "Time in hms:";
-			this.labelRuntime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// MainForm
 			// 
